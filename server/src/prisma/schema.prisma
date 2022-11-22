@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @unique @default(uuid()) @db.VarChar(36)
+  name          String         @db.VarChar(100)
+  tokenId       String?        @unique @db.VarChar(255)
+  shoppingLists ShoppingList[]
+}
+
+model ShoppingList {
+  id             Int        @id @default(autoincrement())
+  creatorId      String?    @db.VarChar(36)
+  created_at     DateTime   @default(now())
+  title          String?    @db.VarChar(100)
+  shoppingListId String     @unique @default(uuid()) @db.VarChar(36)
+  creator        User?      @relation(fields: [creatorId], references: [id])
+  listItems      listData[]
+
+  @@index([creatorId], map: "ShoppingList_creatorId_fkey")
+}
+
+model listData {
+  ListId         Int           @id @default(autoincrement())
+  created_at     DateTime      @default(now()) @db.Timestamp(0)
+  item           String?       @db.VarChar(255)
+  shoppingListId String?       @db.VarChar(36)
+  ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [shoppingListId])
+
+  @@index([shoppingListId], map: "listData_shoppingListId_fkey")
+}
