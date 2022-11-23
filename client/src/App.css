@@ -39,3 +39,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}

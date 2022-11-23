@@ -16,7 +16,11 @@ router.post("/", async (req: Request, res: Response) => {
     },
   });
   if (!user) return res.status(400).send("Could not create user");
-  res.json(`User ${userId} created with token: ${tokenId}`);
+  res.set("token", tokenId);
+  // res.json(`User ${userId} created with token: ${tokenId}`);
+  res.json({
+    token: tokenId,
+  });
 });
 
 export default router;
