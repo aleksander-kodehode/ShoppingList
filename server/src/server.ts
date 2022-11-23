@@ -1,9 +1,8 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import getUserPost from "./routes/getUserListsRoute";
 import saveUser from "./routes/postUserSaveRoute";
-import prisma from "./prisma/prismaClient";
 
 const app = express();
 
