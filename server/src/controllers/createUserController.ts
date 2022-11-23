@@ -3,7 +3,7 @@ import prisma from "../prisma/prismaClient";
 import crypto from "crypto";
 const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   await prisma.$connect();
 
   const userId = await req.body.userName;
@@ -15,12 +15,10 @@ router.post("/", async (req: Request, res: Response) => {
       tokenId: tokenId,
     },
   });
-  if (!user) return res.status(400).send("Could not create user");
-  res.set("token", tokenId);
-  // res.json(`User ${userId} created with token: ${tokenId}`);
+  // if (!user) return res.status(400).send("Could not create user");
+  // res.set("token", tokenId);
+  // // res.json(`User ${userId} created with token: ${tokenId}`);
   res.json({
     token: tokenId,
   });
-});
-
-export default router;
+};

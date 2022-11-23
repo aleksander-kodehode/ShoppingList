@@ -1,14 +1,12 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import getUserPost from "./routes/getUserListsRoute";
-import saveUser from "./routes/postUserSaveRoute";
+import router from "./routes";
 
 const app = express();
 
 //middleware
 app.use(express.json());
-
 app.use(
   cors({
     origin: "*",
@@ -16,8 +14,9 @@ app.use(
 );
 
 //routing;
-app.use("/lists", getUserPost);
-app.use("/user/", saveUser);
+app.use(router);
+// app.use("/lists", getUserPost);
+// app.use("/user/", saveUser);
 
 // const prismaTest = async () => {
 //   await prisma.$connect();
