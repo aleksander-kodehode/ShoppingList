@@ -5,6 +5,6 @@ import { createUser } from "../controllers/createUserController";
 const router = express.Router();
 
 router.get("/lists", getShoppingList);
-router.post("/user", createUser);
+router.post("/register", createUser);
 
 export default router;

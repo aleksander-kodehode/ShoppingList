@@ -1,10 +1,13 @@
 import apiConfig from "../config";
 
-const createUser = async (userName: string) => {
-  const response = await fetch(`${apiConfig.server}/register`, {
+//Post to get token and id of user when he enter website
+//--> GET user
+
+const createUser = async (tokenId: string) => {
+  const response = await fetch(`${apiConfig.server}/user`, {
     method: "POST",
     body: JSON.stringify({
-      userName: userName,
+      tokenId: tokenId,
     }),
     headers: { "Content-Type": "application/json" },
   });

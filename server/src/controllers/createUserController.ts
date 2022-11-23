@@ -1,7 +1,6 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import prisma from "../prisma/prismaClient";
 import crypto from "crypto";
-const router = express.Router();
 
 export const createUser = async (req: Request, res: Response) => {
   await prisma.$connect();
@@ -15,10 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
       tokenId: tokenId,
     },
   });
-  // if (!user) return res.status(400).send("Could not create user");
-  // res.set("token", tokenId);
-  // // res.json(`User ${userId} created with token: ${tokenId}`);
   res.json({
-    token: tokenId,
+    user: user,
   });
 };
