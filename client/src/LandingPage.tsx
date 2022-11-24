@@ -34,7 +34,7 @@ function LandingPage() {
   return (
     <>
       <LoginForm />
-      <Link to={`/user/${userId}`}>Fake user login</Link>
+      <Link to={`/app/user/${userId}`}>Fake user login</Link>
     </>
   );
 }
