@@ -8,7 +8,8 @@ import LandingPage from "./LandingPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    // element: <LandingPage />,
+    element: <App />,
   },
   {
     path: "/home",
