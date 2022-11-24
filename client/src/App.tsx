@@ -13,15 +13,14 @@ function App() {
     "80845de7-bc05-478c-8232-8a32fd5dd67b"
   );
   const { userId } = useParams();
-  const [user, setUser] = useState({} as User);
   const [listTitle, setListTitle] = useState("");
-  const [lists, SetLists] = useState([] as List[]);
+  const [lists, setLists] = useState([] as List[]);
 
   const hanleCreateNewList = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) return;
     const list = await createList(userId, listTitle);
-    SetLists([...lists, list]);
+    setLists([...lists, list]);
     setListTitle("");
   };
   const handleListDelete = async (listId: string) => {
@@ -29,7 +28,7 @@ function App() {
     if (!listId || !userId) return;
     const deletedList = await deleteList(userId, listId);
     //sort new list based on the deleted list.
-    SetLists(lists.filter((list) => list.shoppingListId !== listId));
+    setLists(lists.filter((list) => list.shoppingListId !== listId));
   };
   useEffect(() => {
     if (!userId) return;
@@ -37,7 +36,7 @@ function App() {
       // const currentUser = await findUser(tokenId);
       // setUser(currentUser);
       const shoppingLists = await getShoppingList(userId);
-      SetLists(shoppingLists);
+      setLists(shoppingLists);
     })();
   }, []);
   return (
@@ -57,7 +56,7 @@ function App() {
         lists.map((list, idx) => {
           return (
             <div className="shopping-list" key={idx}>
-              <Link to={`${list.id}`}>
+              <Link to={`${list.shoppingListId}`}>
                 <h2>{list.title}</h2>
               </Link>
               <span>{list.created_at}</span>

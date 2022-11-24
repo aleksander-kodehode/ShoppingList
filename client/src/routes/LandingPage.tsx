@@ -32,10 +32,10 @@ function LandingPage() {
   }
   //Match token with a user, if user is found consider them logged in
   return (
-    <>
+    <div className="login-form">
       <LoginForm />
       <Link to={`/app/user/${userId}`}>Fake user login</Link>
-    </>
+    </div>
   );
 }
 

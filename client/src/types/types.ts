@@ -9,3 +9,8 @@ export type List = {
   listItems?: string[];
   shoppingListId: string;
 };
+export type ListItem = {
+  item: string;
+  created_at: string;
+  listId: string;
+};

@@ -15,19 +15,17 @@ const LoginForm = () => {
   };
   // localStorage.setItem("token", "a39a8f84-62e7-47bd-be61-a6e964cdcea6");
   return (
-    <div>
-      <form className="loginForm" onSubmit={handleUserSubmit}>
-        <label htmlFor="UserName">Please input a username</label>
-        <input
-          id="UserName"
-          value={handleName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setHandleName(e.target.value);
-          }}
-        ></input>
-        <button>Start creating shopping lists</button>
-      </form>
-    </div>
+    <form className="loginForm" onSubmit={handleUserSubmit}>
+      <label htmlFor="UserName">Please input a username</label>
+      <input
+        id="UserName"
+        value={handleName}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setHandleName(e.target.value);
+        }}
+      ></input>
+      <button>Start creating shopping lists</button>
+    </form>
   );
 };
 

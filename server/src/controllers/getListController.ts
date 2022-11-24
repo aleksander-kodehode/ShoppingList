@@ -17,7 +17,9 @@ export const getShoppingLists = async (req: Request, res: Response) => {
   } catch (e) {
     //Error handling
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      return res.status(400).send("Could not find a user with this ID");
+      return res
+        .status(400)
+        .send("Could not find a shopping list matching this ID");
     }
     throw e;
   }
