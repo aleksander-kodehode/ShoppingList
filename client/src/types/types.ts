@@ -3,9 +3,9 @@ export type User = {
 };
 export type List = {
   title: string;
-  listId: String;
-  created_at: String;
-  creatorId: String;
+  id: string;
+  created_at: string;
+  creatorId: string;
   listItems?: string[];
-  shoppingListId: String;
+  shoppingListId: string;
 };

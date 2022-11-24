@@ -6,7 +6,7 @@ import LoginForm from "./components/LoginForm";
 
 function LandingPage() {
   //Check for token
-  const userId = "caa70385-76c2-4721-b443-0e2e521841bf";
+  const userId = "f5bd8027-feee-40fe-a912-6d4091c5ff75";
   if (localStorage.hasOwnProperty("token")) {
     const token = localStorage.getItem("token") || "";
     // console.log(`Token found: ${token}`);
@@ -34,7 +34,7 @@ function LandingPage() {
   return (
     <>
       <LoginForm />
-      <Link to={`user/${userId}`}>Fake user login</Link>
+      <Link to={`/user/${userId}`}>Fake user login</Link>
     </>
   );
 }

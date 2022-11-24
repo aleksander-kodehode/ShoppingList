@@ -1,4 +1,3 @@
-import { User } from "../../types/types";
 import apiConfig from "../config";
 
 const createUser = async (userName: string) => {
@@ -9,7 +8,6 @@ const createUser = async (userName: string) => {
     }),
     headers: { "Content-Type": "application/json" },
   });
-  console.log(res);
   // TODO: save token id to a localstorage
 
   return res.json();

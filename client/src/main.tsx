@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import LandingPage from "./LandingPage";
+import ShoppingList from "./ShoppingList";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/user/:userId",
     element: <App />,
+  },
+  {
+    path: "/user/:userId/:id",
+    element: <ShoppingList />,
   },
   {
     path: "/register",

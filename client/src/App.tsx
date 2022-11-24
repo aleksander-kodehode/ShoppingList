@@ -4,8 +4,9 @@ import { List, User } from "./types/types";
 import "./App.css";
 import LoginForm from "./components/LoginForm";
 import findUser from "./api/routes/findUser";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
+import deleteList from "./api/routes/deleteList";
 
 function App() {
   const [tokenId, setTokenId] = useState(
@@ -22,6 +23,13 @@ function App() {
     const list = await createList(userId, listTitle);
     SetLists([...lists, list]);
     setListTitle("");
+  };
+  const handleListDelete = async (listId: string) => {
+    console.log(listId);
+    if (!listId || !userId) return;
+    const deletedList = await deleteList(userId, listId);
+    //sort new list based on the deleted list.
+    SetLists(lists.filter((list) => list.shoppingListId !== listId));
   };
   useEffect(() => {
     if (!userId) return;
@@ -49,8 +57,15 @@ function App() {
         lists.map((list, idx) => {
           return (
             <div className="shopping-list" key={idx}>
-              <h2>{list.title}</h2>
+              <Link to={`${list.id}`}>
+                <h2>{list.title}</h2>
+              </Link>
               <span>{list.created_at}</span>
+              <button
+                onClick={(e: any) => handleListDelete(list.shoppingListId)}
+              >
+                delete
+              </button>
             </div>
           );
         })}
