@@ -1,10 +1,12 @@
 import express from "express";
-import { getShoppingList } from "../controllers/getListController";
+import { getShoppingLists } from "../controllers/getListController";
 import { createUser } from "../controllers/createUserController";
+import { createList } from "../controllers/createNewList";
 
 const router = express.Router();
 
-router.get("/lists", getShoppingList);
+router.get("/user/:userId", getShoppingLists);
+router.post("/user/:userId", createList);
 router.post("/register", createUser);
 
 export default router;

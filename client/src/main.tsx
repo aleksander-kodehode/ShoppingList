@@ -9,11 +9,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     // element: <LandingPage />,
+    element: <LandingPage />,
+  },
+  {
+    path: "/user/:userId",
     element: <App />,
   },
   {
-    path: "/home",
-    element: <App />,
+    path: "/register",
+    element: <LandingPage />,
   },
 ]);
 

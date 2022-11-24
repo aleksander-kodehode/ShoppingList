@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import apiConfig from "./api/config";
 import "./App.css";
 import LoginForm from "./components/LoginForm";
 
 function LandingPage() {
   //Check for token
-
+  const userId = "caa70385-76c2-4721-b443-0e2e521841bf";
   if (localStorage.hasOwnProperty("token")) {
     const token = localStorage.getItem("token") || "";
     // console.log(`Token found: ${token}`);
@@ -33,6 +34,7 @@ function LandingPage() {
   return (
     <>
       <LoginForm />
+      <Link to={`user/${userId}`}>Fake user login</Link>
     </>
   );
 }

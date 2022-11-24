@@ -1,16 +1,17 @@
+import { User } from "../../types/types";
 import apiConfig from "../config";
 
 const createUser = async (userName: string) => {
-  const response = await fetch(`${apiConfig.server}/register`, {
+  const res = await fetch(`${apiConfig.server}/register`, {
     method: "POST",
     body: JSON.stringify({
       userName: userName,
     }),
     headers: { "Content-Type": "application/json" },
   });
-  console.log(response);
+  console.log(res);
   // TODO: save token id to a localstorage
 
-  return response.json();
+  return res.json();
 };
 export default createUser;

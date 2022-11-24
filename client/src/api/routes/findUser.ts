@@ -3,9 +3,9 @@ import apiConfig from "../config";
 //Post to get token and id of user when he enter website
 //--> GET user
 
-const createUser = async (tokenId: string) => {
+const findUser = async (tokenId: string) => {
   const response = await fetch(`${apiConfig.server}/user`, {
-    method: "POST",
+    method: "get",
     body: JSON.stringify({
       tokenId: tokenId,
     }),
@@ -16,4 +16,4 @@ const createUser = async (tokenId: string) => {
 
   return response.json();
 };
-export default createUser;
+export default findUser;
