@@ -6,7 +6,7 @@ import LoginForm from "../components/LoginForm";
 
 function LandingPage() {
   //Check for token
-  const userId = "f5bd8027-feee-40fe-a912-6d4091c5ff75";
+  const userId = "986aa301-beed-446d-9fe0-2e78321cf24e";
   if (localStorage.hasOwnProperty("token")) {
     const token = localStorage.getItem("token") || "";
     // console.log(`Token found: ${token}`);

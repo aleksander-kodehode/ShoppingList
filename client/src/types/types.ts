@@ -12,5 +12,5 @@ export type List = {
 export type ListItem = {
   item: string;
   created_at: string;
-  listId: string;
+  listId: number;
 };

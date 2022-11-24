@@ -26,6 +26,8 @@ model ShoppingList {
   @@index([creatorId], map: "ShoppingList_creatorId_fkey")
 }
 
+//TODO: Add bolean to check if task is completed or not
+//TODO: Change name of ListId to itemId
 model listData {
   ListId         Int           @id @default(autoincrement())
   created_at     DateTime      @default(now()) @db.Timestamp(0)

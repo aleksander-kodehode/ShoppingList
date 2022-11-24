@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import getShoppingList from "./api/routes/getShoppingLists";
 import { List, User } from "./types/types";
 import "./App.css";
-import LoginForm from "./components/LoginForm";
-import findUser from "./api/routes/findUser";
 import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
 import deleteList from "./api/routes/deleteList";
@@ -16,7 +14,7 @@ function App() {
   const [listTitle, setListTitle] = useState("");
   const [lists, setLists] = useState([] as List[]);
 
-  const hanleCreateNewList = async (e: React.FormEvent) => {
+  const handleCreateNewList = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) return;
     const list = await createList(userId, listTitle);
@@ -25,7 +23,8 @@ function App() {
   };
   const handleListDelete = async (listId: string) => {
     console.log(listId);
-    if (!listId || !userId) return;
+    if (!listId || !userId)
+      return console.log("Either listId or userId is undefined");
     const deletedList = await deleteList(userId, listId);
     //sort new list based on the deleted list.
     setLists(lists.filter((list) => list.shoppingListId !== listId));
@@ -41,7 +40,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <form onSubmit={hanleCreateNewList}>
+      <form onSubmit={handleCreateNewList}>
         <label htmlFor="list-title">List name</label>
         <input
           id="list-title"

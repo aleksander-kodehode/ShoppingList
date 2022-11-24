@@ -5,17 +5,12 @@ import prisma from "../prisma/prismaClient";
 export const getShoppingListsItems = async (req: Request, res: Response) => {
   try {
     await prisma.$connect();
-    //Change to req.param.userID when routing is setup
-    const listId = req.params.listId;
-    const userId = req.params.userId;
-    // const userId = req.body.userID
+    const { listId } = req.params;
     const ShoppingListsItems = await prisma.listData.findMany({
       where: {
         shoppingListId: listId,
       },
     });
-    //TODO: THIS RETURNS AN EMPTY OBJECT FOR SOME REASON
-    console.log(ShoppingListsItems);
     res.json(ShoppingListsItems);
   } catch (e) {
     //Error handling

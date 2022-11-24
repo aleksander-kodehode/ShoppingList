@@ -19,28 +19,28 @@ app.use(router);
 // app.use("/lists", getUserPost);
 // app.use("/user/", saveUser);
 
-const prismaTest = async () => {
-  await prisma.$connect();
-  const createList = await prisma.listData.findMany({
-    where: {
-      shoppingListId: "faad2263-5207-4918-8efc-148cb52f41f3",
-    },
-  });
-  console.log(createList);
-};
-prismaTest()
-  .then(async () => {
-    await prisma.$disconnect();
-    console.log("Prisma diconnected");
-  })
+// const prismaTest = async () => {
+//   await prisma.$connect();
+//   const createList = await prisma.listData.findMany({
+//     where: {
+//       shoppingListId: "faad2263-5207-4918-8efc-148cb52f41f3",
+//     },
+//   });
+//   console.log(createList);
+// };
+// prismaTest()
+//   .then(async () => {
+//     await prisma.$disconnect();
+//     console.log("Prisma diconnected");
+//   })
 
-  .catch(async (e) => {
-    console.error(e);
+//   .catch(async (e) => {
+//     console.error(e);
 
-    await prisma.$disconnect();
+//     await prisma.$disconnect();
 
-    process.exit(1);
-  });
+//     process.exit(1);
+//   });
 
 // const prismaTest = async () => {
 //   await prisma.$connect();
