@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import apiConfig from "./api/config";
-import "./App.css";
-import LoginForm from "./components/LoginForm";
+import apiConfig from "../api/config";
+import "../App.css";
+import LoginForm from "../components/LoginForm";
 
 function LandingPage() {
   //Check for token

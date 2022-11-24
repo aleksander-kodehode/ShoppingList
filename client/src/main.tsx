@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import LandingPage from "./LandingPage";
+import LandingPage from "./routes/LandingPage";
 import Root from "./routes/Root";
 import ShoppingList from "./ShoppingList";
 
