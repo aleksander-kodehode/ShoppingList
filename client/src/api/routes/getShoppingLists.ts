@@ -5,7 +5,7 @@ import apiConfig from "../config";
 //--> GET user
 
 const getShoppingList = async (userId: String): Promise<List[]> => {
-  const res = await fetch(`${apiConfig.server}/user/${userId}`);
+  const res = await fetch(`${apiConfig.server}/user/${userId}/list`);
   return res.json();
 };
 

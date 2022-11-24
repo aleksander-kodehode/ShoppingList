@@ -5,10 +5,11 @@ import prisma from "../prisma/prismaClient";
 export const findUser = async (req: Request, res: Response) => {
   try {
     await prisma.$connect();
-    const tokenId = await req.body.tokenId;
+    //Change to req.param.userID when routing is setup
+    const userId = req.params.userId;
     const user = await prisma.user.findUnique({
       where: {
-        tokenId: tokenId,
+        id: userId,
       },
     });
     res.json(user);

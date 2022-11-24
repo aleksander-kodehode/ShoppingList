@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import getShoppingList from "./api/routes/getShoppingLists";
-import { List, User } from "./types/types";
-import "./App.css";
+import getShoppingList from "../api/routes/getShoppingLists";
+import { List, User } from "../types/types";
+import "../App.css";
 import { Link, useParams } from "react-router-dom";
-import createList from "./api/routes/createNewList";
-import deleteList from "./api/routes/deleteList";
-import BackButton from "./components/BackButton";
+import createList from "../api/routes/createNewList";
+import deleteList from "../api/routes/deleteList";
+import BackButton from "../components/BackButton";
 
 function ShoppingList() {
   const [tokenId, setTokenId] = useState(

@@ -5,7 +5,7 @@ import App from "./App";
 import "./index.css";
 import LandingPage from "./routes/LandingPage";
 import Root from "./routes/Root";
-import ShoppingList from "./ShoppingList";
+import ShoppingList from "./routes/ShoppingList";
 
 const router = createBrowserRouter([
   {
