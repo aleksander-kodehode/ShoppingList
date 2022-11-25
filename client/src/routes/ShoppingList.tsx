@@ -24,7 +24,11 @@ const ShoppingList: React.FC = () => {
     // Right now names are unique, which makes it so you cant create items with the same name
     // Want them to update instead of duplicating.
     if (!userId || !listId) return;
-    const listItem = await createListItem(userId, listId, itemTitle);
+    const listItem = await createListItem(userId, listId, itemTitle).catch(
+      (e) => {
+        console.log(e.code);
+      }
+    );
     setListItems([...listItems, listItem]);
     setItemTitle("");
   };
