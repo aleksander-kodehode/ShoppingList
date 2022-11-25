@@ -7,7 +7,9 @@ import getShoppingListItems from "../api/routes/shoppingListItems";
 import createListItem from "../api/routes/createItem";
 import deleteItem from "../api/routes/deleteItem";
 import getShoppingList from "../api/routes/getShoppingLists";
+import { Icon } from "@iconify/react";
 import { Input, Button, Form, List, InputNumber } from "antd";
+import ListItemModal from "../components/ListItemModal";
 
 const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();
@@ -119,8 +121,10 @@ const ShoppingList: React.FC = () => {
                     <span>{item.item}</span>
                     <span className="createdAt">{item.created_at}</span>
                   </div>
-                  <InputNumber min={1} max={20} defaultValue={item.amount} />
+                  <span>{item.amount}</span>
                   <span>{item.isChecked}</span>
+                  {/* @ts-ignore */}
+                  <ListItemModal items={item} />
                   <Button onClick={(e: any) => handleItemDelete(item.itemId)}>
                     X
                   </Button>

@@ -3,9 +3,11 @@ import getShoppingList from "./api/routes/getShoppingLists";
 import { ShoppingListType, User } from "./types/types";
 import "./App.css";
 import { Form } from "antd";
+import { Icon } from "@iconify/react";
 import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
 import deleteList from "./api/routes/deleteList";
+import { ListContainer, Lists } from "./styled/appStyled";
 
 const App: React.FC = () => {
   const [tokenId, setTokenId] = useState(
@@ -53,22 +55,24 @@ const App: React.FC = () => {
         ></input>
         <button>Create new List</button>
       </form>
-      {lists.length > 0 &&
-        lists.map((list, idx) => {
-          return (
-            <div className="shopping-list" key={idx}>
-              <Link to={`${list.shoppingListId}`}>
-                <h2>{list.title}</h2>
-              </Link>
-              <span>{list.created_at}</span>
-              <button
-                onClick={(e: any) => handleListDelete(list.shoppingListId)}
-              >
-                delete
-              </button>
-            </div>
-          );
-        })}
+      <ListContainer>
+        {lists.length > 0 &&
+          lists.map((list, idx) => {
+            return (
+              <Lists key={idx}>
+                <Link to={`${list.shoppingListId}`}>
+                  <h2>{list.title}</h2>
+                </Link>
+                <span>{list.created_at}</span>
+                <button
+                  onClick={(e: any) => handleListDelete(list.shoppingListId)}
+                >
+                  <Icon icon="iwwa:delete" />
+                </button>
+              </Lists>
+            );
+          })}
+      </ListContainer>
     </div>
   );
 };
