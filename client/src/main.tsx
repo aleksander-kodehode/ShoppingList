@@ -6,6 +6,8 @@ import "./index.css";
 import LandingPage from "./routes/LandingPage";
 import Root from "./routes/Root";
 import ShoppingList from "./routes/ShoppingList";
+import { ConfigProvider } from "antd";
+import { antdConfig } from "./configs/andtConfig";
 
 const router = createBrowserRouter([
   {
@@ -32,19 +34,12 @@ const router = createBrowserRouter([
       },
     ],
   },
-  //TODO: Remove commented code when new apprcoach with nested routes are working.
-  // {
-  //   path: "/user/:userId/:id",
-  //   element: <ShoppingList />,
-  // },
-  // {
-  //   path: "/register",
-  //   element: <LandingPage />,
-  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ConfigProvider theme={antdConfig}>
+      <RouterProvider router={router} />
+    </ConfigProvider>
   </React.StrictMode>
 );

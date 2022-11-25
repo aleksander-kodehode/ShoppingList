@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getShoppingList from "./api/routes/getShoppingLists";
-import { List, User } from "./types/types";
+import { ShoppingListType, User } from "./types/types";
 import "./App.css";
 import { Form } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ const App: React.FC = () => {
   );
   const { userId } = useParams();
   const [listTitle, setListTitle] = useState("");
-  const [lists, setLists] = useState([] as List[]);
+  const [lists, setLists] = useState([] as ShoppingListType[]);
 
   const handleCreateNewList = async (e: React.FormEvent) => {
     e.preventDefault();

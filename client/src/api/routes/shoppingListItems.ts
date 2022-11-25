@@ -1,4 +1,4 @@
-import { List, ListItem } from "../../types/types";
+import { ListItem } from "../../types/types";
 import apiConfig from "../config";
 
 const getShoppingListItems = async (
