@@ -24,13 +24,15 @@ CREATE TABLE `ShoppingList` (
 
 -- CreateTable
 CREATE TABLE `listData` (
-    `ListId` INTEGER NOT NULL AUTO_INCREMENT,
+    `itemId` INTEGER NOT NULL AUTO_INCREMENT,
     `created_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `isChecked` BOOLEAN NOT NULL DEFAULT false,
+    `amount` INTEGER NOT NULL DEFAULT 1,
     `item` VARCHAR(255) NULL,
     `shoppingListId` VARCHAR(36) NULL,
 
     INDEX `listData_shoppingListId_fkey`(`shoppingListId`),
-    PRIMARY KEY (`ListId`)
+    PRIMARY KEY (`itemId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey

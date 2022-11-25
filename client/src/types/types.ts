@@ -1,5 +1,6 @@
 export type User = {
-  name: String;
+  id: string;
+  name: string;
 };
 export type List = {
   title: string;
@@ -12,5 +13,8 @@ export type List = {
 export type ListItem = {
   item: string;
   created_at: string;
-  listId: number;
+  itemId: number;
+  isChecked: boolean;
+  amount: number;
+  shoppingListId: string;
 };

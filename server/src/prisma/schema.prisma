@@ -29,11 +29,16 @@ model ShoppingList {
 //TODO: Add bolean to check if task is completed or not
 //TODO: Change name of ListId to itemId
 model listData {
-  ListId         Int           @id @default(autoincrement())
+  itemId         Int           @id @default(autoincrement())
   created_at     DateTime      @default(now()) @db.Timestamp(0)
+  isChecked      Boolean       @default(false)
+  amount         Int           @default(1)
   item           String?       @db.VarChar(255)
+  // parent         ShoppingList  @relation(fields: [listName], references: [title])
+  // listName       String        @db.VarChar(100)
   shoppingListId String?       @db.VarChar(36)
   ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [shoppingListId])
 
+  // @@index([listName], map: "listData_parentList_fkey")
   @@index([shoppingListId], map: "listData_shoppingListId_fkey")
 }

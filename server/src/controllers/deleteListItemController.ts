@@ -8,7 +8,7 @@ export const deleteListItem = async (req: Request, res: Response) => {
     const itemId = await req.body.itemId;
     const deletedList = await prisma.listData.delete({
       where: {
-        ListId: itemId,
+        itemId: itemId,
       },
     });
     console.log(`Shopping list ${itemId} was deleted`);
