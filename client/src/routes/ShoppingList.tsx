@@ -8,7 +8,7 @@ import createListItem from "../api/routes/createItem";
 import deleteItem from "../api/routes/deleteItem";
 import getShoppingList from "../api/routes/getShoppingLists";
 
-function ShoppingList() {
+const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();
   const [itemTitle, setItemTitle] = useState("");
   const [listItems, setListItems] = useState([] as ListItem[]);
@@ -85,6 +85,6 @@ function ShoppingList() {
         })}
     </div>
   );
-}
+};
 
 export default ShoppingList;

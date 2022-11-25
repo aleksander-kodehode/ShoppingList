@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import getShoppingList from "./api/routes/getShoppingLists";
 import { List, User } from "./types/types";
 import "./App.css";
+import { Form } from "antd";
 import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
 import deleteList from "./api/routes/deleteList";
 
-function App() {
+const App: React.FC = () => {
   const [tokenId, setTokenId] = useState(
     "80845de7-bc05-478c-8232-8a32fd5dd67b"
   );
@@ -40,6 +41,7 @@ function App() {
   }, []);
   return (
     <div className="App">
+      {/* <Form */}
       <form onSubmit={handleCreateNewList}>
         <label htmlFor="list-title">List name</label>
         <input
@@ -69,6 +71,6 @@ function App() {
         })}
     </div>
   );
-}
+};
 
 export default App;

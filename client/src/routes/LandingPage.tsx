@@ -4,7 +4,7 @@ import apiConfig from "../api/config";
 import "../App.css";
 import LoginForm from "../components/LoginForm";
 
-function LandingPage() {
+const LandingPage: React.FC = () => {
   //Check for token
   const userId = "27030bfd-1e8b-4920-9f46-d6f45ba9c279";
   if (localStorage.hasOwnProperty("token")) {
@@ -37,6 +37,6 @@ function LandingPage() {
       <Link to={`/app/user/${userId}`}>Fake user login</Link>
     </div>
   );
-}
+};
 
 export default LandingPage;
