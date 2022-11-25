@@ -2,25 +2,26 @@ import React, { useEffect, useState } from "react";
 import getShoppingList from "./api/routes/getShoppingLists";
 import { ShoppingListType, User } from "./types/types";
 import "./App.css";
-import { Form } from "antd";
+import { List, Button } from "antd";
 import { Icon } from "@iconify/react";
 import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
 import deleteList from "./api/routes/deleteList";
-import { ListContainer, Lists } from "./styled/appStyled";
+import { AppContainer, ListContainer, Lists } from "./styled/appStyled";
+import successMessage from "./components/messages/SuccessMessage";
 
 const App: React.FC = () => {
-  const [tokenId, setTokenId] = useState(
-    "80845de7-bc05-478c-8232-8a32fd5dd67b"
-  );
   const { userId } = useParams();
   const [listTitle, setListTitle] = useState("");
   const [lists, setLists] = useState([] as ShoppingListType[]);
+
+  const { openSuccessMessage, successMessageModal } = successMessage();
 
   const handleCreateNewList = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) return;
     const list = await createList(userId, listTitle);
+    openSuccessMessage("Shopping List has been created");
     setLists([...lists, list]);
     setListTitle("");
   };
@@ -42,7 +43,8 @@ const App: React.FC = () => {
     })();
   }, []);
   return (
-    <div className="App">
+    <AppContainer className="App">
+      {successMessageModal}
       {/* <Form */}
       <form onSubmit={handleCreateNewList}>
         <label htmlFor="list-title">List name</label>
@@ -56,24 +58,30 @@ const App: React.FC = () => {
         <button>Create new List</button>
       </form>
       <ListContainer>
-        {lists.length > 0 &&
-          lists.map((list, idx) => {
-            return (
-              <Lists key={idx}>
-                <Link to={`${list.shoppingListId}`}>
-                  <h2>{list.title}</h2>
-                </Link>
-                <span>{list.created_at}</span>
-                <button
+        {lists.length > 0 && (
+          <List
+            itemLayout="horizontal"
+            size="small"
+            dataSource={lists}
+            renderItem={(list) => (
+              <List.Item>
+                <div>
+                  <Link to={`${list.shoppingListId}`}>
+                    <h2>{list.title}</h2>
+                  </Link>
+                  <span>{list.created_at.replace(/[-]/g, "-")}</span>
+                </div>
+                <Button
                   onClick={(e: any) => handleListDelete(list.shoppingListId)}
                 >
-                  <Icon icon="iwwa:delete" />
-                </button>
-              </Lists>
-            );
-          })}
+                  <Icon icon="ion:trash-outline" />
+                </Button>
+              </List.Item>
+            )}
+          />
+        )}
       </ListContainer>
-    </div>
+    </AppContainer>
   );
 };
 

@@ -6,7 +6,7 @@ import LoginForm from "../components/LoginForm";
 
 const LandingPage: React.FC = () => {
   //Check for token
-  const userId = "5c7b30ac-d177-4c4d-b2b0-4b9102bbcf6c";
+  const userId = "85eddee7-4a05-4887-bb65-c7f842c0c258";
   if (localStorage.hasOwnProperty("token")) {
     const token = localStorage.getItem("token") || "";
     // console.log(`Token found: ${token}`);
