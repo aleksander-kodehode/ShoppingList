@@ -28,7 +28,7 @@ const RegisterForm = () => {
     setHandleName("");
     setHandlePassword("");
     console.log();
-    // navigate("/");
+    navigate("/");
   };
   return (
     <RegFormContainer>
