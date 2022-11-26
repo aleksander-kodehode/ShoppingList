@@ -8,19 +8,19 @@ import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
 import deleteList from "./api/routes/deleteList";
 import { AppContainer, ListContainer, Lists } from "./styled/appStyled";
-import successMessage from "./components/messages/SuccessMessage";
-import errorMessage from "./components/messages/ErrorMessage";
-import warningMessage from "./components/messages/WarningMessage";
+import statusMessage from "./components/StatusMessage";
 
 const App: React.FC = () => {
   const { userId } = useParams();
   const [listTitle, setListTitle] = useState("");
   const [lists, setLists] = useState([] as ShoppingListType[]);
-
   //Status pop ups
-  const { openSuccessMessage, successMessageModal } = successMessage();
-  const { openErrorMessage, errorMessageModal } = errorMessage();
-  const { openWarningMessage, warningMessageModal } = warningMessage();
+  const {
+    openSuccessMessage,
+    openErrorMessage,
+    openWarningMessage,
+    statusMessageModal,
+  } = statusMessage();
 
   const handleCreateNewList = async (e: React.FormEvent) => {
     if (!userId) return;
@@ -51,14 +51,13 @@ const App: React.FC = () => {
       // const currentUser = await findUser(tokenId);
       // setUser(currentUser);
       const shoppingLists = await getShoppingList(userId);
+      console.log(shoppingLists);
       setLists(shoppingLists);
     })();
   }, []);
   return (
     <AppContainer className="App">
-      {successMessageModal}
-      {errorMessageModal}
-      {warningMessageModal}
+      {statusMessageModal}
       {/* <Form */}
       <Form
         name="create-new-item"

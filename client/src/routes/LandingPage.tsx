@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import apiConfig from "../api/config";
 import "../App.css";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/forms/LoginForm";
+import { FormWrapper } from "../styled/landingPageStyled";
 
 const LandingPage: React.FC = () => {
   if (localStorage.hasOwnProperty("token")) {
@@ -13,27 +14,15 @@ const LandingPage: React.FC = () => {
     async () => {
       const response = fetch(`${apiConfig}/`);
     };
-
-    // const response =  fetch(`${apiConfig.server}/user`, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       userName: userName,
-    //     }),
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    //   console.log(response);
-    //   // TODO: save token id to a localstorage
-
-    //   return response.json();
-  } else {
-    console.log("no token here");
   }
   //Match token with a user, if user is found consider them logged in
   return (
-    <div className="login-form">
-      <Link to={"/register"}>Register here for an account</Link>
-      <LoginForm />
-    </div>
+    <>
+      <h1>SHOPPING LIST APP</h1>
+      <FormWrapper>
+        <LoginForm />
+      </FormWrapper>
+    </>
   );
 };
 

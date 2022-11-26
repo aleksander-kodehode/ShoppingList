@@ -7,7 +7,7 @@ import { authConfig } from "../../config/auth.config";
 export const login = async (req: Request, res: Response) => {
   await prisma.$connect();
   const { username, password } = req.body;
-  const createUser = await prisma.user
+  const userLookup = await prisma.user
     .findUnique({
       where: {
         userName: username,
@@ -15,9 +15,11 @@ export const login = async (req: Request, res: Response) => {
     })
     .then((user) => {
       if (!user) {
-        return res
-          .status(404)
-          .send({ message: "User was not found in our systems!" });
+        return res.status(404).send({
+          accessToken: null,
+          message: "Wrong username, or user doesn't exits",
+          code: 404,
+        });
       }
       console.log("User found");
       const validPassword = bcrypt.compareSync(password, user.password);
@@ -26,14 +28,19 @@ export const login = async (req: Request, res: Response) => {
         return res.status(401).send({
           accessToken: null,
           message: "Wrong Password",
+          code: 401,
         });
       }
-      jwt.sign({ id: user.id }, authConfig.jwt.secret, {
+
+      const token = jwt.sign({ id: user.id }, authConfig.jwt.secret, {
         expiresIn: 86400, //1 day
       });
-      res.status(200).send({
-        message: "Logged in successfully",
+
+      return res.status(200).send({
+        message: "Logged in successfully!",
         id: user.id,
+        token: token,
+        code: 200,
       });
     })
     .catch((err) => {

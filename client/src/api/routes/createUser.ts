@@ -9,8 +9,13 @@ const createUser = async (username: string, password: string) => {
     }),
     headers: { "Content-Type": "application/json" },
   });
-  // TODO: save token id to a localstorage
-
-  return res.json();
+  if (res.status !== 200) {
+    const error = await res.json();
+    return error;
+  }
+  const data = res.json();
+  return data.then((result) => {
+    return result;
+  });
 };
 export default createUser;

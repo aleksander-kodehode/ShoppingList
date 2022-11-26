@@ -7,6 +7,7 @@ export const getShoppingLists = async (req: Request, res: Response) => {
     await prisma.$connect();
     //Change to req.param.userID when routing is setup
     const creatorId = req.params.userId;
+    console.log(creatorId);
     // const userId = req.body.userID
     const ShoppingLists = await prisma.shoppingList.findMany({
       where: {

@@ -7,8 +7,6 @@ const findUser = async (userId: string) => {
   const response = await fetch(`${apiConfig.server}/user/${userId}`, {
     headers: { "Content-Type": "application/json" },
   });
-  console.log(response);
-  // TODO: save token id to a localstorage
 
   return response.json();
 };

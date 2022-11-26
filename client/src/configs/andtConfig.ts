@@ -1,5 +1,5 @@
 export const antdConfig = {
   token: {
-    colorPrimary: "#1677ff",
+    colorPrimary: "#7D8DFE",
   },
 };

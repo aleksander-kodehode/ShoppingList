@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import BackButton from "../components/BackButton";
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm from "../components/forms/RegisterForm";
+import { FormWrapper } from "../styled/landingPageStyled";
 
 const RegisterPage: React.FC = () => {
   return (
-    <div className="login-form">
-      <BackButton />
-      <Link to={"/register"}>Register here for an account</Link>
-      <RegisterForm />
-    </div>
+    <>
+      <h1>SHOPPING LIST APP</h1>
+      <FormWrapper>
+        <RegisterForm />
+      </FormWrapper>
+    </>
   );
 };
 

@@ -21,7 +21,7 @@ model ShoppingList {
   created_at     DateTime   @default(now())
   title          String?    @db.VarChar(100)
   shoppingListId String     @unique @default(uuid()) @db.VarChar(36)
-  creator        User?      @relation(fields: [creatorId], references: [userName])
+  creator        User?      @relation(fields: [creatorId], references: [id])
   listItems      listData[]
 
   @@index([creatorId], map: "ShoppingList_creatorId_fkey")

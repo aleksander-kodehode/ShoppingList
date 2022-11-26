@@ -8,7 +8,7 @@ import { getShoppingListsItems } from "../controllers/listItemControllers/getLis
 import { createListItem } from "../controllers/listItemControllers/createListItemController";
 import { deleteListItem } from "../controllers/listItemControllers/deleteListItemController";
 import { login } from "../controllers/authControllers/loginController";
-import register from "../controllers/authControllers/registerController";
+import { register } from "../controllers/authControllers/registerController";
 import checkDuplicateUserName from "../middleware/verifyRegister";
 
 const router = express.Router();

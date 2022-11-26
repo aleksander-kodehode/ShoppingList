@@ -6,7 +6,6 @@ const checkDuplicateUserName = async (
   res: Response,
   next: NextFunction
 ) => {
-  //Mail
   await prisma.$connect();
   const userName = req.body.username;
 
@@ -18,7 +17,9 @@ const checkDuplicateUserName = async (
       if (user) {
         res.status(400).send({
           message: "Username is already in use",
+          code: 400,
         });
+        return;
       }
       next();
     });
