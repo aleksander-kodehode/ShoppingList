@@ -1,4 +1,3 @@
-import RefAutoComplete from "antd/es/auto-complete";
 import apiConfig from "../config";
 
 const loginUser = async (username: string, password: string) => {
@@ -16,6 +15,11 @@ const loginUser = async (username: string, password: string) => {
   }
   const data = res.json();
   return data.then((result) => {
+    //Save token and id to LocalStorage for auto login if they exist
+    if (result.token) {
+      localStorage.setItem("accessToken", JSON.stringify(result.token));
+      localStorage.setItem("userId", JSON.stringify(result.id));
+    }
     return result;
   });
 };

@@ -1,6 +1,6 @@
 export type User = {
   id: string;
-  name: string;
+  userName: string;
 };
 export type ShoppingListType = {
   title: string;

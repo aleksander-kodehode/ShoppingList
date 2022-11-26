@@ -13,12 +13,13 @@ const Header = () => {
       // const currentUser = await findUser(tokenId);
       // setUser(currentUser);
       const user = await findUser(userId);
+      console.log(user);
       setUser(user);
     })();
   }, []);
   return (
     <>
-      <h1>Header - Current user: {user.name}</h1>
+      <h1>Header - Current user: {user.userName}</h1>
     </>
   );
 };
