@@ -1,12 +1,12 @@
 import express from "express";
-import { getShoppingLists } from "../controllers/getListController";
-import { createUser } from "../controllers/createUserController";
-import { createList } from "../controllers/createNewListController";
-import { deleteList } from "../controllers/deleteListController";
-import { findUser } from "../controllers/findUserController";
-import { getShoppingListsItems } from "../controllers/getListItemsController";
-import { createListItem } from "../controllers/createListItemController";
-import { deleteListItem } from "../controllers/deleteListItemController";
+import { getShoppingLists } from "../controllers/listControllers/getListController";
+import { createUser } from "../controllers/userControllers/createUserController";
+import { createList } from "../controllers/listControllers/createNewListController";
+import { deleteList } from "../controllers/listControllers/deleteListController";
+import { findUser } from "../controllers/userControllers/findUserController";
+import { getShoppingListsItems } from "../controllers/listItemControllers/getListItemsController";
+import { createListItem } from "../controllers/listItemControllers/createListItemController";
+import { deleteListItem } from "../controllers/listItemControllers/deleteListItemController";
 
 const router = express.Router();
 

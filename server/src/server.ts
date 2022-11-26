@@ -4,6 +4,7 @@ import "dotenv/config";
 import router from "./routes";
 import prisma from "./prisma/prismaClient";
 
+const PORT = process.env.APP_PORT || 3500;
 const app = express();
 
 //middleware
@@ -70,5 +71,5 @@ app.use(router);
 //   console.log(createList);
 // };
 
-app.listen(process.env.APP_PORT);
-console.log(`App running on port: ${process.env.APP_PORT}`);
+app.listen(PORT);
+console.log(`App running on port: ${PORT}`);

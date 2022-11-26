@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import prisma from "../prisma/prismaClient";
+import prisma from "../../prisma/prismaClient";
 import crypto from "crypto";
 import { Prisma } from "@prisma/client";
 

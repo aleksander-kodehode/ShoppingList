@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import prisma from "../prisma/prismaClient";
+import prisma from "../../prisma/prismaClient";
 
 export const createList = async (req: Request, res: Response) => {
   try {
