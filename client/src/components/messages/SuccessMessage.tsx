@@ -1,4 +1,3 @@
-import React from "react";
 import { message } from "antd";
 
 const successMessage = () => {
@@ -8,24 +7,9 @@ const successMessage = () => {
     messageApi.open({
       type: "success",
       content: text,
-      duration: 1.5,
+      duration: 2,
     });
   };
-
-  const error = () => {
-    messageApi.open({
-      type: "error",
-      content: "This is an error message",
-    });
-  };
-
-  const warning = () => {
-    messageApi.open({
-      type: "warning",
-      content: "This is a warning message",
-    });
-  };
-
   return {
     openSuccessMessage,
     successMessageModal: <>{contextHolder}</>,

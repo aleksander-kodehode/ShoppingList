@@ -1,40 +1,19 @@
-import React from "react";
-import { Button, message, Space } from "antd";
+import { message } from "antd";
 
-const ErrorMessage: React.FC = () => {
+const errorMessage = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const success = () => {
-    messageApi.open({
-      type: "success",
-      content: "This is a success message",
-    });
-  };
-
-  const error = () => {
+  const openErrorMessage = (text: string) => {
     messageApi.open({
       type: "error",
-      content: "This is an error message",
+      content: text,
+      duration: 2,
     });
   };
-
-  const warning = () => {
-    messageApi.open({
-      type: "warning",
-      content: "This is a warning message",
-    });
+  return {
+    openErrorMessage,
+    errorMessageModal: <>{contextHolder}</>,
   };
-
-  return (
-    <>
-      {contextHolder}
-      <Space>
-        <Button onClick={success}>Success</Button>
-        <Button onClick={error}>Error</Button>
-        <Button onClick={warning}>Warning</Button>
-      </Space>
-    </>
-  );
 };
 
-export default ErrorMessage;
+export default errorMessage;
