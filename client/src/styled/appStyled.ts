@@ -24,15 +24,18 @@ export const ListContainer = styled.div`
   }
 
   & ul {
-    border: 1px solid rgba(5, 5, 5, 0.1);
+    /* border: 1px solid rgba(5, 5, 5, 0.1); */
     width: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     & li {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
       background: white;
       justify-content: flex-start;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(5, 5, 5, 0.1);
       transition: box-shadow cubic-bezier(0.175, 0.885, 0.32, 1.275) 360ms;
       &:hover {
         box-shadow: 2.5px 0.9px 18.9px -7px rgba(0, 0, 0, 0.021),
@@ -49,6 +52,7 @@ export const ListContainer = styled.div`
       &:last-child {
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+        margin-bottom: 0;
       }
     }
     & div {
@@ -56,6 +60,9 @@ export const ListContainer = styled.div`
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      & a h2 {
+        margin: 0;
+      }
     }
   }
 `;

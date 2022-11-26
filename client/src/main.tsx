@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
@@ -8,6 +8,7 @@ import Root from "./routes/Root";
 import ShoppingList from "./routes/ShoppingList";
 import { ConfigProvider } from "antd";
 import { antdConfig } from "./configs/andtConfig";
+import RegisterPage from "./routes/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <LandingPage />,
+    element: <RegisterPage />,
   },
   {
     //TODO: Going to /app displays only header and footer,

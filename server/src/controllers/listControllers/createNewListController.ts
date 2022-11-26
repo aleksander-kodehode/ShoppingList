@@ -16,7 +16,9 @@ export const createList = async (req: Request, res: Response) => {
               id: userId,
             },
             create: {
-              name: "Fallback User",
+              //This will never be used, but is needed
+              userName: "Fallback User",
+              password: "fallback",
             },
           },
         },

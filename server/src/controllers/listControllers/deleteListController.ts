@@ -13,7 +13,8 @@ export const deleteList = async (req: Request, res: Response) => {
     });
     console.log(`Shopping list ${listId} was deleted`);
     res.json({
-      message: `Successfully deleted entry: ${"deleteList"}`,
+      message: `Successfully deleted list:`,
+      list: deletedList,
     });
     //error handling
   } catch (e) {

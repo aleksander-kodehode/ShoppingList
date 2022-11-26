@@ -7,6 +7,9 @@ import { findUser } from "../controllers/userControllers/findUserController";
 import { getShoppingListsItems } from "../controllers/listItemControllers/getListItemsController";
 import { createListItem } from "../controllers/listItemControllers/createListItemController";
 import { deleteListItem } from "../controllers/listItemControllers/deleteListItemController";
+import { login } from "../controllers/authControllers/loginController";
+import register from "../controllers/authControllers/registerController";
+import checkDuplicateUserName from "../middleware/verifyRegister";
 
 const router = express.Router();
 
@@ -18,5 +21,8 @@ router.delete("/user/:userId/:listId", deleteListItem);
 router.post("/user/:userId", createList);
 router.delete("/user/:userId", deleteList);
 router.post("/register", createUser);
+
+router.post("/auth/register", checkDuplicateUserName, register);
+router.post("/auth/login", login);
 
 export default router;

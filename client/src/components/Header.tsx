@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import apiConfig from "../api/config";
 import findUser from "../api/routes/findUser";
 import { User } from "../types/types";
 

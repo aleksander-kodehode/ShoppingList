@@ -5,8 +5,6 @@ import "../App.css";
 import LoginForm from "../components/LoginForm";
 
 const LandingPage: React.FC = () => {
-  //Check for token
-  const userId = "85eddee7-4a05-4887-bb65-c7f842c0c258";
   if (localStorage.hasOwnProperty("token")) {
     const token = localStorage.getItem("token") || "";
     // console.log(`Token found: ${token}`);
@@ -33,8 +31,8 @@ const LandingPage: React.FC = () => {
   //Match token with a user, if user is found consider them logged in
   return (
     <div className="login-form">
+      <Link to={"/register"}>Register here for an account</Link>
       <LoginForm />
-      <Link to={`/app/user/${userId}`}>Fake user login</Link>
     </div>
   );
 };

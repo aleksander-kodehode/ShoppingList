@@ -8,8 +8,9 @@ datasource db {
 }
 
 model User {
-  id            String         @id @unique @default(uuid()) @db.VarChar(36)
-  name          String         @db.VarChar(100)
+  id            String         @unique @default(uuid()) @db.VarChar(36)
+  userName      String         @id @unique @db.VarChar(100)
+  password      String         @db.VarChar(255)
   tokenId       String?        @unique @db.VarChar(255)
   shoppingLists ShoppingList[]
 }
@@ -20,7 +21,7 @@ model ShoppingList {
   created_at     DateTime   @default(now())
   title          String?    @db.VarChar(100)
   shoppingListId String     @unique @default(uuid()) @db.VarChar(36)
-  creator        User?      @relation(fields: [creatorId], references: [id])
+  creator        User?      @relation(fields: [creatorId], references: [userName])
   listItems      listData[]
 
   @@index([creatorId], map: "ShoppingList_creatorId_fkey")

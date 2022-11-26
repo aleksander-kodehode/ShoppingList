@@ -1,10 +1,11 @@
 import apiConfig from "../config";
 
-const createUser = async (userName: string) => {
-  const res = await fetch(`${apiConfig.server}/register`, {
+const loginUser = async (username: string, password: string) => {
+  const res = await fetch(`${apiConfig.server}/auth/login`, {
     method: "POST",
     body: JSON.stringify({
-      userName: userName,
+      username: username,
+      password: password,
     }),
     headers: { "Content-Type": "application/json" },
   });
@@ -12,4 +13,4 @@ const createUser = async (userName: string) => {
 
   return res.json();
 };
-export default createUser;
+export default loginUser;
