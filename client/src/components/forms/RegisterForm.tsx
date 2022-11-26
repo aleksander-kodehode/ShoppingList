@@ -50,6 +50,12 @@ const RegisterForm = () => {
               required: true,
               message: "Please input your Username!",
             },
+            {
+              validator: (_, value) =>
+                !value.includes(" ")
+                  ? Promise.resolve()
+                  : Promise.reject(new Error("No spaces allowed")),
+            },
           ]}
         >
           <Input
