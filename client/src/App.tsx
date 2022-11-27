@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import getShoppingList from "./api/routes/getShoppingLists";
 import { ShoppingListType, User } from "./types/types";
 import "./App.css";
-import { List, Button, Form, Input } from "antd";
+import { List, Button, Form, Input, Modal } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import { Link, useParams } from "react-router-dom";
 import createList from "./api/routes/createNewList";
 import deleteList from "./api/routes/deleteList";
 import { AppContainer, ListContainer, Lists } from "./styled/appStyled";
 import statusMessage from "./components/StatusMessage";
+import ShoppingListModal from "./components/ShoppingListModal";
 
 const App: React.FC = () => {
   const { userId } = useParams();
@@ -109,14 +111,20 @@ const App: React.FC = () => {
                   </Link>
                   <span>{list.created_at.replace(/[-]/g, "-")}</span>
                 </div>
-                <Button
+                <ShoppingListModal
+                  list={list}
+                  lists={lists}
+                  setLists={setLists}
+                  handleDelete={handleListDelete}
+                />
+                {/* <Button
                   onClick={(e: any) => handleListDelete(list.shoppingListId)}
                 >
                   <Icon icon="ion:trash-outline" />
-                </Button>
+                </Button> */}
               </List.Item>
             )}
-          />
+          ></List>
         ) : (
           <List size="small" bordered>
             <List.Item>Start adding items to get your own list</List.Item>
