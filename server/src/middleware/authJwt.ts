@@ -1,25 +1,36 @@
 import jwt from "jsonwebtoken";
 import { authConfig } from "../config/auth.config";
-import { Request, Response } from "express";
-import prisma from "../prisma/prismaClient";
+import { NextFunction, Request, Response } from "express";
 
-const verifyToken = (req: Request, res: Response) => {
+export const verifyToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const authHeader = req.headers.authorization;
-
+  const { userId } = req.params;
   if (!authHeader) {
     return res.status(403).send({
       message: "No token provided!",
     });
   }
-  const [, token] = authHeader.split(" ");
+  const token = authHeader;
+
+  console.log(token);
 
   jwt.verify(token, authConfig.jwt.secret, async (err, decoded) => {
     if (err) {
       return res.status(401).send({
         message: "Unauthorized access",
+        code: 401,
       });
     }
-    //Need to check here?
-    // req.userId = decoded.id
+    if (decoded) {
+      // @ts-ignore
+      if (decoded.id === userId) {
+        //Check that user is the same as token.
+        next();
+      }
+    }
   });
 };

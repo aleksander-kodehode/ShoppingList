@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import findUser from "../api/routes/findUser";
 import { User } from "../types/types";
 
 const Header = () => {
   const { userId } = useParams();
   const [user, setUser] = useState({} as User);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
 
   useEffect(() => {
     if (!userId) return;
     (async () => {
-      // const currentUser = await findUser(tokenId);
-      // setUser(currentUser);
       const user = await findUser(userId);
-      console.log(user);
       setUser(user);
     })();
   }, []);
   return (
     <>
-      <h1>Header - Current user: {user.userName}</h1>
+      <h4>Current user: {user.userName}</h4>
+      <button onClick={handleLogout}>Logout</button>
     </>
   );
 };

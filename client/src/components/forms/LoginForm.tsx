@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import loginUser from "../../api/routes/loginUser";
 import statusMessage from "../StatusMessage";
 import { FormContainer } from "../../styled/landingPageStyled";
+import { authHeader } from "../../services/authHeader";
+import checkLoggedIn from "../../api/routes/checkIfLoggedIn";
 
 const LoginForm = () => {
   const [handleName, setHandleName] = useState("");
@@ -22,7 +24,18 @@ const LoginForm = () => {
     console.log(user);
     if (user.id) navigate(`/app/user/${user.id}`);
   };
-  // localStorage.setItem("token", "a39a8f84-62e7-47bd-be61-a6e964cdcea6");
+  useEffect(() => {
+    (async () => {
+      const token = authHeader();
+      if (token) {
+        const status = await checkLoggedIn();
+        if (status === 200) {
+          const userId = JSON.parse(localStorage.getItem("userId")!);
+          navigate(`/app/user/${userId}`);
+        }
+      } else return;
+    })();
+  }, []);
   return (
     <>
       {statusMessageModal}

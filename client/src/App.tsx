@@ -50,9 +50,8 @@ const App: React.FC = () => {
     (async () => {
       // const currentUser = await findUser(tokenId);
       // setUser(currentUser);
-      const shoppingLists = await getShoppingList(userId);
-      console.log(shoppingLists);
-      setLists(shoppingLists);
+      const res = await getShoppingList(userId);
+      setLists(res);
     })();
   }, []);
   return (

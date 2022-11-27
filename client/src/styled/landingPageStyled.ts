@@ -41,17 +41,6 @@ export const RegFormContainer = styled(FormContainer)`
     top: -20px;
     left: 10px;
     border-color: #7d8dfe;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    & svg {
-      transition: transform 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    }
-    &:hover {
-      & svg {
-        transform: translateX(-5px);
-      }
-    }
   }
 `;
 export const RegFormItem = styled(Form.Item)`

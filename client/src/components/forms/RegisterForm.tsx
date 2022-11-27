@@ -20,6 +20,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [handleName, setHandleName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [handlePassword, setHandlePassword] = useState("");
 
   const handleUserSubmit = async (e: React.FormEvent) => {
@@ -27,8 +28,12 @@ const RegisterForm = () => {
     if (user.code !== 200) return openErrorMessage(user.message);
     setHandleName("");
     setHandlePassword("");
-    console.log();
-    navigate("/");
+    setIsLoading(true);
+    //Fake delay to show loading state
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("/");
+    }, 1000);
   };
   return (
     <RegFormContainer>
@@ -110,7 +115,7 @@ const RegisterForm = () => {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isLoading}>
             Register
           </Button>
         </Form.Item>
