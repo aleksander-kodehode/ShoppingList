@@ -18,8 +18,9 @@ model User {
 model ShoppingList {
   id             Int        @id @default(autoincrement())
   creatorId      String?    @db.VarChar(36)
-  created_at     DateTime   @default(now())
   title          String?    @db.VarChar(100)
+  created_at     DateTime   @default(now())
+  deleted        Boolean    @default(false)
   shoppingListId String     @unique @default(uuid()) @db.VarChar(36)
   creator        User?      @relation(fields: [creatorId], references: [id])
   listItems      listData[]
