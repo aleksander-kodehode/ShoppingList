@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import createUser from "../../api/routes/createUser";
 import { Button, Form, Input } from "antd";
 import { RegFormContainer, RegFormItem } from "../../styled/landingPageStyled";
-import BackButton from "../BackButton";
+import BackButton from "../buttons/BackButton";
 import statusMessage from "../StatusMessage";
 
 const formItemLayout = {
