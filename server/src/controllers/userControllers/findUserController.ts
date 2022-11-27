@@ -12,7 +12,7 @@ export const findUser = async (req: Request, res: Response) => {
         id: userId,
       },
     });
-    return res.json(user);
+    res.json(user);
   } catch (e) {
     //Error handling
     if (e instanceof Prisma.PrismaClientKnownRequestError) {

@@ -1,4 +1,3 @@
-import { User } from "../../types/types";
 import apiConfig from "../config";
 
 const createList = async (userId: string, title: string) => {

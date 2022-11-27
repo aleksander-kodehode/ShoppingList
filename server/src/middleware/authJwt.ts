@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { authConfig } from "../config/auth.config";
 import { NextFunction, Request, Response } from "express";
+import prisma from "../prisma/prismaClient";
 
 export const verifyToken = async (
   req: Request,
@@ -16,8 +17,6 @@ export const verifyToken = async (
   }
   const token = authHeader;
 
-  console.log(token);
-
   jwt.verify(token, authConfig.jwt.secret, async (err, decoded) => {
     if (err) {
       return res.status(401).send({
@@ -28,7 +27,25 @@ export const verifyToken = async (
     if (decoded) {
       // @ts-ignore
       if (decoded.id === userId) {
-        //Check that user is the same as token.
+        //Edge case if database gets deleted and user doesn't exist it will still return true.
+        //Need to connect to db to check if user exists
+        await prisma.$connect();
+        const confirmDb = await prisma.user
+          .findUnique({
+            where: {
+              id: userId,
+            },
+          })
+          .then((user) => {
+            if (!user) {
+              const responseNotExists = res.status(404).send({
+                accessToken: null,
+                message: "User doesn't exist!",
+                code: 404,
+              });
+              next(responseNotExists);
+            }
+          });
         next();
       }
     }
