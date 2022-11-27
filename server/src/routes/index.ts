@@ -11,17 +11,20 @@ import { register } from "../controllers/authControllers/registerController";
 import checkDuplicateUserName from "../middleware/verifyRegister";
 import { verifyToken } from "../middleware/authJwt";
 import { checkUserLoggedIn } from "../controllers/authControllers/checkController";
+import { softDelete } from "../middleware/softDelete";
+import { updateList } from "../controllers/listControllers/updateList";
 
 const router = express.Router();
 
 //App routes
 router.get("/user/:userId", verifyToken, findUser);
 router.get("/user/:userId/list", verifyToken, getShoppingLists);
+router.post("/user/:userId/list", verifyToken, updateList);
 router.get("/user/:userId/:listId", getShoppingListsItems);
 router.post("/user/:userId/:listId", verifyToken, createListItem);
 router.delete("/user/:userId/:listId", verifyToken, deleteListItem);
 router.post("/user/:userId", createList);
-router.delete("/user/:userId", deleteList);
+router.delete("/user/:userId", verifyToken, deleteList);
 
 //auth
 router.post("/auth/register", checkDuplicateUserName, register);

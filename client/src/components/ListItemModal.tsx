@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Modal, Form, Input } from "antd";
 import { Icon } from "@iconify/react";
-import { ListItem } from "../types/types";
+import { ShoppingListType } from "../types/types";
 
 const ListItemModal: React.FC = ({ items }: any) => {
   const [open, setOpen] = useState(false);

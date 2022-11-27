@@ -46,6 +46,7 @@ export const verifyToken = async (
               next(responseNotExists);
             }
           });
+        console.log("Verified request");
         next();
       }
     }
