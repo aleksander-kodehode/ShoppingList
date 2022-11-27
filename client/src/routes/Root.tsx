@@ -3,7 +3,11 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { authHeader } from "../services/authHeader";
-import { HeaderContainer } from "../styled/rootStyled";
+import {
+  FooterContainer,
+  HeaderContainer,
+  MainContainer,
+} from "../styled/rootStyled";
 
 const Root: React.FC = () => {
   const navigate = useNavigate();
@@ -18,12 +22,12 @@ const Root: React.FC = () => {
       <HeaderContainer>
         <Header />
       </HeaderContainer>
-      <main>
+      <MainContainer>
         <Outlet />
-      </main>
-      <footer>
+      </MainContainer>
+      <FooterContainer>
         <Footer />
-      </footer>
+      </FooterContainer>
     </>
   );
 };

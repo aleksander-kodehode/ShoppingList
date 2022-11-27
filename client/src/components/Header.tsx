@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import findUser from "../api/routes/findUser";
+import { RightNav } from "../styled/headerStyled";
 import { User } from "../types/types";
 
 const Header = () => {
@@ -23,8 +24,11 @@ const Header = () => {
   }, []);
   return (
     <>
-      <h4>Current user: {user.userName}</h4>
-      <button onClick={handleLogout}>Logout</button>
+      <div>logo here</div>
+      <RightNav>
+        <h4>profile: {user.userName}</h4>
+        <button onClick={handleLogout}>Logout</button>
+      </RightNav>
     </>
   );
 };

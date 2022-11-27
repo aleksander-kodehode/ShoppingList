@@ -1,7 +1,9 @@
 const Footer = () => {
   return (
     <>
-      <h1>Footer</h1>
+      <div>ShoppingList™</div>
+
+      <div>terms of service</div>
     </>
   );
 };

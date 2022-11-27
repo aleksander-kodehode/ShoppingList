@@ -5,7 +5,7 @@
   font-weight: 400;
   color: rgba(41, 41, 41, 0.87);
   background-color: #f0f0f0;
-  box-sizing: border-box;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,6 +17,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  box-sizing: border-box;
   min-width: 600px;
   min-height: 100vh;
   box-sizing: border-box;
