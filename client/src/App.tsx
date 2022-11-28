@@ -59,7 +59,7 @@ const App: React.FC = () => {
         name="create-new-item"
         initialValues={{ remember: true }}
         onFinish={handleCreateNewList}
-        style={{ width: "500px" }}
+        className="FormNewItem"
       >
         <Form.Item>
           <Input.Group compact>

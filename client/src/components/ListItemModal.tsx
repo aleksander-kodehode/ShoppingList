@@ -44,12 +44,15 @@ const ListItemModal = ({
       updatedName,
       listItemId
     );
-    console.log(updatedListItem);
-    setListItems(listItems.filter((item) => item.itemId !== listItemId));
-    setListItems((listItems) => [updatedListItem, ...listItems]);
+    //map over old array, find right object and replace data with new data from fetch
+    //Doing it this way to avoid listItems jumping all over the place
+    const newState = listItems.map((obj) => {
+      if (obj.itemId === updatedListItem.itemId) {
+        return { ...obj, amount: updatedAmount, item: updatedName };
+      } else return obj;
+    });
+    setListItems(newState);
     setUpdatedName(currentListItem.item);
-    //TODO: Still bugged since it get put all the way down, not sure how to fix this...
-    //one way to fix is to just edit the array, find the right index based on listId then alter the title field.
     setOpen(false);
   };
   const currentNumber = (value: number) => {
@@ -69,6 +72,7 @@ const ListItemModal = ({
         title="Title"
         centered={true}
         open={open}
+        onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={[

@@ -8,6 +8,12 @@ export const AppContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  & > form {
+    width: 500px;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
+  }
 `;
 
 export const ListContainer = styled.div`
@@ -19,6 +25,9 @@ export const ListContainer = styled.div`
   gap: 10px;
   width: 60%;
   flex-wrap: wrap;
+  @media (max-width: 600px) {
+    width: 95%;
+  }
   & div {
     width: 100%;
   }

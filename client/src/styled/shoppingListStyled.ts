@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Input, Button, Form, List, InputNumber } from "antd";
+import { Input, Button, Form, List, InputNumber, Checkbox } from "antd";
 
 export const PageContainer = styled.div`
   display: flex;
@@ -13,6 +13,9 @@ export const PageContainer = styled.div`
     position: relative;
     align-items: center;
     margin-bottom: 20px;
+    @media (max-width: 600px) {
+      width: 95%;
+    }
     & > button {
       position: absolute;
       left: 0;
@@ -22,6 +25,9 @@ export const PageContainer = styled.div`
 
 export const ListItemsContainer = styled.div`
   width: 70%;
+  @media (max-width: 600px) {
+    width: 95%;
+  }
   & div.ant-list-header {
     background-color: white;
     border-top-left-radius: 10px;
@@ -47,7 +53,16 @@ export const ListItemsContainer = styled.div`
     }
   }
   & ul.ant-list-items {
+    &:last-child {
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    & li.CheckmarkChecked {
+      text-decoration: line-through;
+      background-color: #fcf0f4;
+    }
     & li {
+      text-decoration: none;
       & .list-items {
         width: 100%;
         display: grid;
@@ -85,7 +100,5 @@ export const ListItemsContainer = styled.div`
     background-color: white;
   }
   & ul:last-child {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
   }
 `;

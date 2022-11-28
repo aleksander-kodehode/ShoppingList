@@ -36,23 +36,27 @@ const ShoppingList: React.FC = () => {
     if (!userId || !listId) return;
     if (!itemTitle) return openErrorMessage("List needs at least 2 characters");
     let match: boolean = true;
+    //Check if item is already in the list
     [...listItems].forEach(async (item) => {
       if (item.item === itemTitle) {
         match = false;
         return openWarningMessage(
           "Item allready in list, try changing the amount"
         );
-        //TODO:
-        //send a createOrUpdate request with id, title, amount.
       }
     });
     if (match) {
       const listItem = await createListItem(userId, listId, itemTitle);
       openSuccessMessage(`Added ${itemTitle} to the list`);
+      let newArr = Array.prototype.slice.call(listItems);
+      newArr.push(listItem);
+      newArr.sort((a, b) => Number(a.isChecked) - Number(b.isChecked));
       setListItems(
-        [listItem, ...listItems].sort(
-          (a, b) => Number(a.isChecked) - Number(b.isChecked)
-        )
+        newArr
+        // [listItem, ...listItems]
+        // .sort(
+        //   (a, b) => Number(a.isChecked) - Number(b.isChecked)
+        // )
       );
       setItemTitle("");
     }
@@ -70,8 +74,11 @@ const ShoppingList: React.FC = () => {
     );
     //Update state object based on id
     const newState = listItems.map((obj) => {
+      //match id in state with response id
       if (obj.itemId === checkUncheck.itemId) {
-        return { ...obj, isChecked: true };
+        if (checkUncheck.isChecked) {
+          return { ...obj, isChecked: true };
+        } else return { ...obj, isChecked: false };
       } else return obj;
     });
     //TODO: Fix Visual bug with checkmark to sort the list on click
@@ -109,7 +116,6 @@ const ShoppingList: React.FC = () => {
       <div className="title-wrapper">
         <BackButton />
         <h1>
-          {/* TODO: Need to remove this and add relation in the Prisma schema to avoid an extra fetch request */}
           {lists.length > 0 &&
             lists.map((list, idx) => {
               return list.shoppingListId === listId ? list.title : null;
@@ -161,7 +167,9 @@ const ShoppingList: React.FC = () => {
                 </div>
               }
               renderItem={(item) => (
-                <List.Item>
+                <List.Item
+                  className={item.isChecked ? "CheckmarkChecked" : "NotChecked"}
+                >
                   <div className="list-items">
                     <Checkbox
                       onChange={(e) => handleChecked(e, item.itemId)}
