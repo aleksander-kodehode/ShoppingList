@@ -21,19 +21,3 @@ footer {
   justify-self: flex-end;
   background-color: rgb(102, 102, 102);
 }
-
-.list-items {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.list-item-title {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.list-item-title .createdAt {
-  font-size: 10px;
-  font-style: italic;
-}
