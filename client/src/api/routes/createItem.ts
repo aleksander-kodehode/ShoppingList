@@ -6,13 +6,13 @@ const createListItem = async (
   listId: string,
   itemTitle: string
 ) => {
-  const token: string = authHeader();
+  const token = authHeader();
   const res = await fetch(`${apiConfig.server}/user/${userId}/${listId}`, {
     method: "POST",
     body: JSON.stringify({
       itemTitle: itemTitle,
     }),
-    headers: { "Content-Type": "application/json", Authorization: token },
+    headers: { "Content-Type": "application/json", Authorization: token! },
   });
   return res.json();
 };
