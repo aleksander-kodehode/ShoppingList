@@ -5,9 +5,9 @@ import apiConfig from "../config";
 //--> GET user
 
 const findUser = async (userId: string) => {
-  const token: string = authHeader();
+  const token = authHeader();
   const res = await fetch(`${apiConfig.server}/user/${userId}`, {
-    headers: { "Content-Type": "application/json", Authorization: token },
+    headers: { "Content-Type": "application/json", Authorization: token! },
   });
 
   return res.json();

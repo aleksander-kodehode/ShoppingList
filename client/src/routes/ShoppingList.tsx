@@ -23,7 +23,7 @@ const ShoppingList: React.FC = () => {
   const [listItems, setListItems] = useState([] as ListItem[]);
   const [lists, setLists] = useState([] as ShoppingListType[]);
   const [loading, setLoading] = useState(false);
-
+  const [newArr, setNewArr] = useState();
   //Status pop ups
   const {
     openSuccessMessage,
@@ -33,12 +33,6 @@ const ShoppingList: React.FC = () => {
   } = statusMessage();
 
   const handleCreateNewItem = async () => {
-    // TODO:
-    // Change fucntion to Update / Create
-    // if item.name matches try to update amount in db and rerender state
-    // else create the new item(need new controller in backend.)
-    // Right now names are unique, which makes it so you cant create items with the same name
-    // Want them to update instead of duplicating.
     if (!userId || !listId) return;
     if (!itemTitle) return openErrorMessage("List needs at least 2 characters");
     let match: boolean = true;
@@ -63,34 +57,28 @@ const ShoppingList: React.FC = () => {
       setItemTitle("");
     }
   };
-  const handleCreateNewItemFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
 
   const handleChecked = async (e: CheckboxChangeEvent, itemId: number) => {
     if (!userId || !listId) return;
+    let indexToDelete = 0;
     const checkedValue = e.target.checked;
-    const checkUncheck = await handleListItemChecked(
+    const checkUncheck: any = await handleListItemChecked(
       userId,
       listId,
       checkedValue,
       itemId
-    ).then((data: ListItem) => {
-      [...listItems].forEach((item, idx) => {
-        // if (listItems.includes(item)) {
-        if (item.itemId === data.itemId) {
-          item.isChecked = !item.isChecked;
-          // console.log(item.isChecked);
-        }
-      });
-      setListItems(
-        [...listItems].sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
-      );
+    );
+    //Update state object based on id
+    const newState = listItems.map((obj) => {
+      if (obj.itemId === checkUncheck.itemId) {
+        return { ...obj, isChecked: true };
+      } else return obj;
     });
-    console.log("Under then", listItems);
-    // setListItems(
-    //   [...listItems].sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
+    //TODO: Fix Visual bug with checkmark to sort the list on click
+    // const newStateSorted = newState.sort(
+    //   (a, b) => Number(a.isChecked) - Number(b.isChecked)
     // );
+    setListItems(newState);
   };
   const handleItemDelete = async (itemId: number, itemTitle: string) => {
     if (!itemId || !userId || !listId)

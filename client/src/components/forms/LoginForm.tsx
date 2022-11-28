@@ -21,7 +21,6 @@ const LoginForm = () => {
     if (user.code !== 200) return openErrorMessage(user.message);
     setHandleName("");
     setHandlePassword("");
-    console.log(user);
     if (user.id) navigate(`/app/user/${user.id}`);
   };
   useEffect(() => {

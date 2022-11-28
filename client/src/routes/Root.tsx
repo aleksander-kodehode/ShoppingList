@@ -14,6 +14,7 @@ const Root: React.FC = () => {
   //Check logged in state
   useEffect(() => {
     const token = authHeader();
+    //TODO: Check with server if token is still signed, if 401 comes back, logout user(aka delete token and userId)
     if (!token) navigate("/");
   }, []);
 
