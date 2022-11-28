@@ -1,21 +1,33 @@
 import { useState } from "react";
 import { Button, Modal, Form, Input } from "antd";
 import { Icon } from "@iconify/react";
-import { ShoppingListType } from "../types/types";
+import { ListItem, ShoppingListType } from "../types/types";
 
-const ListItemModal: React.FC = ({ items }: any) => {
+interface FuncProps {
+  currentListItem: ListItem;
+  //Not very typed... TODO: If time fix this typing........
+  handleItemDelete: (itemId: number, itemTitle: string) => any;
+  setListItems: (arg: any) => any;
+  listItems: any;
+}
+
+const ListItemModal = ({
+  currentListItem,
+  handleItemDelete,
+  setListItems,
+  listItems,
+}: FuncProps) => {
   const [open, setOpen] = useState(false);
+  const [updatedName, setUpdatedName] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
 
-  const handleDeleteItem = () => {
-    console.log("test");
-  };
-  const handleDeleteFailed = () => {
-    console.log("test");
-  };
   const showModal = () => {
     setOpen(true);
+  };
+  const handleDelete = () => {
+    handleItemDelete(currentListItem.itemId, currentListItem.item);
+    setOpen(false);
   };
 
   const handleOk = () => {
@@ -34,38 +46,43 @@ const ListItemModal: React.FC = ({ items }: any) => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="default" onClick={showModal}>
         <Icon icon="material-symbols:edit-square-outline" />
       </Button>
       <Modal
         title="Title"
         centered={true}
         open={open}
-        onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        footer={[
+          <Button
+            key="delete"
+            type="primary"
+            style={{ backgroundColor: "salmon" }}
+            onClick={handleDelete}
+          >
+            Delete list
+          </Button>,
+          <Button key="submit" type="primary" onClick={handleOk}>
+            Submit
+          </Button>,
+        ]}
       >
         <Form
-          name="create-new-item"
+          name="updateItem"
           initialValues={{ remember: true }}
-          onFinish={handleDeleteItem}
-          style={{ width: "400px" }}
-          onFinishFailed={handleDeleteFailed}
+          onFinish={handleOk}
         >
-          <Input.Group compact>
+          <Form.Item name="Title" label="Change title">
             <Input
-              style={{ width: "calc(100% - 200px)" }}
-              // value={itemTitle}
+              value={updatedName}
               minLength={2}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              //   setItemTitle(e.target.value);
-              // }}
-              defaultValue={items.item}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setUpdatedName(e.target.value);
+              }}
             />
-            <Button htmlType="submit" type="primary">
-              Add
-            </Button>
-          </Input.Group>
+          </Form.Item>
         </Form>
       </Modal>
     </>

@@ -13,6 +13,7 @@ import { verifyToken } from "../middleware/authJwt";
 import { checkUserLoggedIn } from "../controllers/authControllers/checkController";
 import { softDelete } from "../middleware/softDelete";
 import { updateList } from "../controllers/listControllers/updateList";
+import { updateListItem } from "../controllers/listItemControllers/updateListItemController";
 
 const router = express.Router();
 
@@ -23,6 +24,7 @@ router.post("/user/:userId/list", verifyToken, updateList);
 router.get("/user/:userId/:listId", getShoppingListsItems);
 router.post("/user/:userId/:listId", verifyToken, createListItem);
 router.delete("/user/:userId/:listId", verifyToken, deleteListItem);
+router.post("/user/:userId/:listId/:itemId", verifyToken, updateListItem);
 router.post("/user/:userId", createList);
 router.delete("/user/:userId", verifyToken, deleteList);
 

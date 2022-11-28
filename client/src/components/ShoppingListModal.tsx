@@ -20,7 +20,6 @@ const ShoppingListModal = ({
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState("");
-  const [modalText, setModalText] = useState("Content of the modal");
 
   const handleDeleteItem = () => {
     handleDelete(list.shoppingListId);
@@ -37,6 +36,7 @@ const ShoppingListModal = ({
     setLists(lists.filter((item) => item.shoppingListId !== listId));
     setLists((lists) => [...lists, updatedListTitle]);
     //TODO: Still bugged since it get put all the way down, not sure how to fix this...
+    //one way to fix is to just edit the array, find the right index based on listId then alter the title field.
     setOpen(false);
   };
 

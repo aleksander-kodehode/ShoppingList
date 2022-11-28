@@ -8,8 +8,15 @@ import createListItem from "../api/routes/createItem";
 import deleteItem from "../api/routes/deleteItem";
 import getShoppingList from "../api/routes/getShoppingLists";
 import { Icon } from "@iconify/react";
-import { Input, Button, Form, List, InputNumber } from "antd";
+import { Input, Button, Form, List, InputNumber, Checkbox } from "antd";
 import ListItemModal from "../components/ListItemModal";
+import statusMessage from "../components/StatusMessage";
+import {
+  ListItemsContainer,
+  PageContainer,
+} from "../styled/shoppingListStyled";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
+import updateListItem from "../api/routes/updateListItem";
 
 const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();
@@ -17,6 +24,14 @@ const ShoppingList: React.FC = () => {
   const [listItems, setListItems] = useState([] as ListItem[]);
   const [lists, setLists] = useState([] as ShoppingListType[]);
   const [loading, setLoading] = useState(false);
+
+  //Status pop ups
+  const {
+    openSuccessMessage,
+    openErrorMessage,
+    openWarningMessage,
+    statusMessageModal,
+  } = statusMessage();
 
   const handleCreateNewItem = async () => {
     // TODO:
@@ -26,23 +41,50 @@ const ShoppingList: React.FC = () => {
     // Right now names are unique, which makes it so you cant create items with the same name
     // Want them to update instead of duplicating.
     if (!userId || !listId) return;
-    const listItem = await createListItem(userId, listId, itemTitle).catch(
-      (e) => {
-        console.log(e.code);
-      }
+    if (!itemTitle) return openErrorMessage("List needs at least 2 characters");
+    const listItem = await createListItem(userId, listId, itemTitle);
+    openSuccessMessage(`Added ${itemTitle} to the list`);
+    setListItems(
+      [listItem, ...listItems].sort(
+        (a, b) => Number(a.isChecked) - Number(b.isChecked)
+      )
     );
-    setListItems([...listItems, listItem]);
     setItemTitle("");
   };
   const handleCreateNewItemFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-  const handleItemDelete = async (itemId: number) => {
-    console.log(itemId);
+
+  const handleChecked = async (e: CheckboxChangeEvent, itemId: number) => {
+    if (!userId || !listId) return;
+    const checkedValue = e.target.checked;
+    const checkUncheck = await updateListItem(
+      userId,
+      listId,
+      checkedValue,
+      itemId
+    ).then((data: ListItem) => {
+      [...listItems].forEach((item, idx) => {
+        // if (listItems.includes(item)) {
+        if (item.itemId === data.itemId) {
+          item.isChecked = !item.isChecked;
+          // console.log(item.isChecked);
+        }
+      });
+      setListItems(
+        [...listItems].sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
+      );
+    });
+    console.log("Under then", listItems);
+    // setListItems(
+    //   [...listItems].sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
+    // );
+  };
+  const handleItemDelete = async (itemId: number, itemTitle: string) => {
     if (!itemId || !userId || !listId)
       return console.log("Either listId, userId or sListId is undefined");
     const deletedList = await deleteItem(userId, listId, itemId);
-    console.log(deletedList);
+    openWarningMessage(`Delted ${itemTitle} from the list`);
     setListItems(listItems.filter((item) => item.itemId !== itemId));
     //sort new list based on the deleted list.
   };
@@ -51,28 +93,34 @@ const ShoppingList: React.FC = () => {
     (async () => {
       setLoading(true);
       const shoppingListsItems = await getShoppingListItems(userId, listId);
-      setListItems(shoppingListsItems);
+      setListItems(
+        shoppingListsItems.sort(
+          (a, b) => Number(a.isChecked) - Number(b.isChecked)
+        )
+      );
       const shoppingLists = await getShoppingList(userId);
       setLists(shoppingLists);
       setLoading(false);
     })();
   }, []);
   return (
-    <div className="shopping-list-view">
-      <h1>
-        {/* TODO: Need to remove this and add relation in the Prisma schema to avoid an extra fetch request */}
-        {lists.length > 0 &&
-          lists.map((list, idx) => {
-            return list.shoppingListId === listId ? list.title : null;
-          })}
-      </h1>
-      <BackButton />
+    <PageContainer className="shopping-list-view">
+      {statusMessageModal}
+      <div className="title-wrapper">
+        <BackButton />
+        <h1>
+          {/* TODO: Need to remove this and add relation in the Prisma schema to avoid an extra fetch request */}
+          {lists.length > 0 &&
+            lists.map((list, idx) => {
+              return list.shoppingListId === listId ? list.title : null;
+            })}
+        </h1>
+      </div>
       <Form
         name="create-new-item"
         initialValues={{ remember: true }}
         onFinish={handleCreateNewItem}
-        style={{ width: "400px" }}
-        onFinishFailed={handleCreateNewItemFailed}
+        style={{ width: "500px" }}
       >
         <Form.Item>
           <Input.Group compact>
@@ -91,75 +139,65 @@ const ShoppingList: React.FC = () => {
           </Input.Group>
         </Form.Item>
       </Form>
-      {/* Old form */}
-      {/* <form onSubmit={handleCreateNewItem}>
-        <label htmlFor="item-title">List name</label>
-       
-        <input
-          id="item-title"
-          value={itemTitle}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setItemTitle(e.target.value);
-          }}
-        ></input>
-        <button>Create new List</button>
-      </form> */}
-
       {
         //Rendering list item from DB
         listItems.length > 0 ? (
-          <List
-            size="small"
-            loading={loading}
-            bordered
-            dataSource={listItems}
-            header={<div>Header info</div>}
-            renderItem={(item) => (
-              <List.Item>
-                <div className="list-items">
-                  <div className="list-item-title">
-                    <span>{item.item}</span>
-                    <span className="createdAt">{item.created_at}</span>
-                  </div>
-                  <span>{item.amount}</span>
-                  <span>{item.isChecked}</span>
-                  {/* @ts-ignore */}
-                  <ListItemModal items={item} />
-                  <Button onClick={(e: any) => handleItemDelete(item.itemId)}>
-                    X
-                  </Button>
+          <ListItemsContainer id="ListItemsContainer">
+            <List
+              //rowKey="id"
+              size="small"
+              loading={loading}
+              bordered
+              dataSource={listItems}
+              header={
+                <div>
+                  <ul>
+                    <li>Completed</li>
+                    <li>Title</li>
+                    <li>Amount</li>
+                    <li>Edit</li>
+                    {/* <li>Delete</li> */}
+                  </ul>
                 </div>
-              </List.Item>
-            )}
-          ></List>
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <div className="list-items">
+                    <Checkbox
+                      onChange={(e) => handleChecked(e, item.itemId)}
+                      defaultChecked={item.isChecked}
+                    />
+                    <div className="list-item-title">
+                      <span>{item.item}</span>
+                      <span className="createdAt">{item.created_at}</span>
+                    </div>
+                    <span>{item.amount}</span>
+                    <ListItemModal
+                      currentListItem={item}
+                      // @ts-ignore
+                      handleItemDelete={handleItemDelete}
+                      setListItems={setListItems}
+                      listItems={listItems}
+                    />
+                    {/* <Button
+                      onClick={(e: any) =>
+                        handleItemDelete(item.itemId, item.item)
+                      }
+                    >
+                      X
+                    </Button> */}
+                  </div>
+                </List.Item>
+              )}
+            ></List>
+          </ListItemsContainer>
         ) : (
           <List size="small" bordered>
             <List.Item>Start adding items to get your own list</List.Item>
           </List>
         )
-        // listItems.map((item, idx) => {
-        //   return (
-        //     <ul className="list-items" key={idx}>
-        //       <li>
-        //         {item.item}
-        //         {item.amount}
-        //         <p>
-        //           {item.isChecked === false
-        //             ? "This is unchecked"
-        //             : "This is now checked"}
-        //         </p>
-        //         <p>{item.itemId}</p>
-        //         {/* <span>{item.created_at}</span> */}
-        //         {/* For some reason item.listId returns undefined */}
-        //         <button onClick={(e: any) => handleItemDelete(item.itemId)}>
-        //           X
-        //         </button>
-        //       </li>
-        //     </ul>
-        //   );
-        // })
       }
-    </div>
+    </PageContainer>
   );
 };
 

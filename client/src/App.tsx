@@ -27,19 +27,14 @@ const App: React.FC = () => {
   const handleCreateNewList = async (e: React.FormEvent) => {
     if (!userId) return;
     if (!listTitle) {
-      return openErrorMessage("List needs at least 3 characters");
+      return openErrorMessage("List needs at least 2 characters");
     }
     const list = await createList(userId, listTitle);
     openSuccessMessage(`Shopping list ${listTitle} was created successfully!`);
     setLists([...lists, list]);
     setListTitle("");
   };
-  const handleCreateNewListFailed = (errorInfo: any) => {
-    openErrorMessage("Something went wrong");
-    console.log("Failed:", errorInfo);
-  };
   const handleListDelete = async (listId: string) => {
-    console.log(listId);
     if (!listId || !userId)
       return console.log("Either listId or userId is undefined");
     const deletedList = await deleteList(userId, listId);
@@ -65,7 +60,6 @@ const App: React.FC = () => {
         initialValues={{ remember: true }}
         onFinish={handleCreateNewList}
         style={{ width: "500px" }}
-        onFinishFailed={handleCreateNewListFailed}
       >
         <Form.Item>
           <Input.Group compact>
