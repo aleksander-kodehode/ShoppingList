@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import "./index.css";
 import LandingPage from "./routes/LandingPage";
 import Root from "./routes/Root";
 import ShoppingList from "./routes/ShoppingList";
 import { ConfigProvider } from "antd";
 import { antdConfig } from "./configs/andtConfig";
 import RegisterPage from "./routes/RegisterPage";
+import GlobalStyle from "./globalStyles";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ConfigProvider theme={antdConfig}>
+      <GlobalStyle />
       <RouterProvider router={router} />
     </ConfigProvider>
   </React.StrictMode>

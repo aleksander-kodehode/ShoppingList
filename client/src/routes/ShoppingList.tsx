@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ShoppingListType, ListItem } from "../types/types";
-import "../App.css";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/buttons/BackButton";
 import getShoppingListItems from "../api/routes/shoppingListItems";

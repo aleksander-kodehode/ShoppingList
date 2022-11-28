@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getShoppingList from "./api/routes/getShoppingLists";
 import { ShoppingListType, User } from "./types/types";
-import "./App.css";
 import { List, Button, Form, Input, Modal } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";

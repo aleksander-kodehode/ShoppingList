@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import "../App.css";
 import RegisterForm from "../components/forms/RegisterForm";
 import { FormWrapper } from "../styled/landingPageStyled";
 
