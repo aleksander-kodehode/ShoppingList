@@ -1,9 +1,11 @@
+import { Avatar, Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import findUser from "../api/routes/findUser";
-import { RightNav } from "../styled/headerStyled";
+import { LogoWrapper, RightNav } from "../styled/headerStyled";
 import { User } from "../types/types";
-
+import logo from "../assets/logo.jpg";
 const Header = () => {
   const { userId } = useParams();
   const [user, setUser] = useState({} as User);
@@ -24,10 +26,17 @@ const Header = () => {
   }, []);
   return (
     <>
-      <div>logo here</div>
+      <LogoWrapper className="logoWrapper">
+        <Link to={`/app/user/${userId}`}>
+          <img src={logo} alt="logo" />
+        </Link>
+      </LogoWrapper>
       <RightNav>
-        <h4>profile: {user.userName}</h4>
-        <button onClick={handleLogout}>Logout</button>
+        <div>
+          <Avatar size="large" icon={<UserOutlined />} />
+          <h4>{user.userName}</h4>
+        </div>
+        <Button onClick={handleLogout}>Logout</Button>
       </RightNav>
     </>
   );

@@ -60,19 +60,22 @@ export const ListItemsContainer = styled.div`
           justify-self: center;
           align-self: center;
         }
+        & .list-item-title-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          & h4.item-title {
+            margin: 0;
+          }
+          & .createdAt {
+            font-size: 10px;
+            font-style: italic;
+          }
+        }
         & .itemAmount {
           align-self: center;
           justify-self: center;
           width: 100%;
-        }
-        & .list-item-title {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        & .createdAt {
-          font-size: 10px;
-          font-style: italic;
         }
       }
     }

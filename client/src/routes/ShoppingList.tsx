@@ -179,8 +179,8 @@ const ShoppingList: React.FC = () => {
                       onChange={(e) => handleChecked(e, item.itemId)}
                       defaultChecked={item.isChecked}
                     />
-                    <div className="list-item-title">
-                      <span>{item.item}</span>
+                    <div className="list-item-title-wrapper">
+                      <h4 className="item-title">{item.item}</h4>
                       <span className="createdAt">{item.created_at}</span>
                     </div>
                     <span className="itemAmount">{item.amount}</span>
