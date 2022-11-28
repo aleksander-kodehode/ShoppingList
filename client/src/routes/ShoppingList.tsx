@@ -165,7 +165,7 @@ const ShoppingList: React.FC = () => {
                 <div>
                   <ul>
                     <li>Completed</li>
-                    <li>Title</li>
+                    <li className="headerTitle">Title</li>
                     <li>Amount</li>
                     <li>Edit</li>
                     {/* <li>Delete</li> */}
@@ -183,7 +183,7 @@ const ShoppingList: React.FC = () => {
                       <span>{item.item}</span>
                       <span className="createdAt">{item.created_at}</span>
                     </div>
-                    <span>{item.amount}</span>
+                    <span className="itemAmount">{item.amount}</span>
                     <ListItemModal
                       currentListItem={item}
                       // @ts-ignore

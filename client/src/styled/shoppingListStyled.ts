@@ -27,18 +27,57 @@ export const ListItemsContainer = styled.div`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     & ul {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 0.4fr 2fr 0.7fr 0.2fr;
+      grid-template-rows: 1fr;
+      gap: 0px 10px;
+      grid-auto-flow: row;
+      grid-template-areas: ". . . .";
       list-style: none;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: row;
       align-items: center;
-      justify-content: space-between;
       font-weight: 700;
+      & li.headerTitle {
+        justify-self: flex-start;
+      }
       &li {
       }
     }
   }
+  & ul.ant-list-items {
+    & li {
+      & .list-items {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 0.4fr 2fr 0.7fr 0.2fr;
+        grid-template-rows: 1fr;
+        gap: 0px 10px;
+        grid-auto-flow: row;
+        grid-template-areas: ". . . .";
+        & .ant-checkbox-wrapper {
+          justify-self: center;
+          align-self: center;
+        }
+        & .itemAmount {
+          align-self: center;
+          justify-self: center;
+          width: 100%;
+        }
+        & .list-item-title {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        & .createdAt {
+          font-size: 10px;
+          font-style: italic;
+        }
+      }
+    }
+  }
+
   & ul {
     background-color: white;
   }
