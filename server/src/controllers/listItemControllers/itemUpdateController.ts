@@ -2,18 +2,18 @@ import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import prisma from "../../prisma/prismaClient";
 
-export const updateListItem = async (req: Request, res: Response) => {
+export const updateItem = async (req: Request, res: Response) => {
   try {
     await prisma.$connect();
     const { itemId } = req.params;
-    const checked = await req.body.checked;
+    const { amount, title } = await req.body;
     const itemIdInt = parseInt(itemId);
 
-    //TODO: Update testing
     const createdList = await prisma.listData.update({
       where: { itemId: itemIdInt },
       data: {
-        isChecked: checked,
+        amount: amount,
+        item: title,
       },
     });
     res.json(createdList);

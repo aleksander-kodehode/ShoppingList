@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ShoppingListType, ListItem } from "../types/types";
 import "../App.css";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BackButton from "../components/buttons/BackButton";
 import getShoppingListItems from "../api/routes/shoppingListItems";
 import createListItem from "../api/routes/createItem";
 import deleteItem from "../api/routes/deleteItem";
 import getShoppingList from "../api/routes/getShoppingLists";
-import { Icon } from "@iconify/react";
-import { Input, Button, Form, List, InputNumber, Checkbox } from "antd";
+import { Input, Button, Form, List, Checkbox } from "antd";
 import ListItemModal from "../components/ListItemModal";
 import statusMessage from "../components/StatusMessage";
 import {
@@ -16,7 +15,7 @@ import {
   PageContainer,
 } from "../styled/shoppingListStyled";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import updateListItem from "../api/routes/updateListItem";
+import handleListItemChecked from "../api/routes/handleListItemChecked";
 
 const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();
@@ -42,14 +41,27 @@ const ShoppingList: React.FC = () => {
     // Want them to update instead of duplicating.
     if (!userId || !listId) return;
     if (!itemTitle) return openErrorMessage("List needs at least 2 characters");
-    const listItem = await createListItem(userId, listId, itemTitle);
-    openSuccessMessage(`Added ${itemTitle} to the list`);
-    setListItems(
-      [listItem, ...listItems].sort(
-        (a, b) => Number(a.isChecked) - Number(b.isChecked)
-      )
-    );
-    setItemTitle("");
+    let match: boolean = true;
+    [...listItems].forEach(async (item) => {
+      if (item.item === itemTitle) {
+        match = false;
+        return openWarningMessage(
+          "Item allready in list, try changing the amount"
+        );
+        //TODO:
+        //send a createOrUpdate request with id, title, amount.
+      }
+    });
+    if (match) {
+      const listItem = await createListItem(userId, listId, itemTitle);
+      openSuccessMessage(`Added ${itemTitle} to the list`);
+      setListItems(
+        [listItem, ...listItems].sort(
+          (a, b) => Number(a.isChecked) - Number(b.isChecked)
+        )
+      );
+      setItemTitle("");
+    }
   };
   const handleCreateNewItemFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -58,7 +70,7 @@ const ShoppingList: React.FC = () => {
   const handleChecked = async (e: CheckboxChangeEvent, itemId: number) => {
     if (!userId || !listId) return;
     const checkedValue = e.target.checked;
-    const checkUncheck = await updateListItem(
+    const checkUncheck = await handleListItemChecked(
       userId,
       listId,
       checkedValue,
@@ -178,6 +190,7 @@ const ShoppingList: React.FC = () => {
                       handleItemDelete={handleItemDelete}
                       setListItems={setListItems}
                       listItems={listItems}
+                      listId={listId!}
                     />
                     {/* <Button
                       onClick={(e: any) =>

@@ -6,9 +6,9 @@ const getShoppingListItems = async (
   userId: String,
   listId: String
 ): Promise<ListItem[]> => {
-  const token: string = authHeader();
+  const token = authHeader();
   const res = await fetch(`${apiConfig.server}/user/${userId}/${listId}`, {
-    headers: { "Content-Type": "application/json", Authorization: token },
+    headers: { "Content-Type": "application/json", Authorization: token! },
   });
   return res.json();
 };
