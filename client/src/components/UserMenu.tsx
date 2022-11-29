@@ -63,6 +63,7 @@ const UserMenu = ({ user, handleLogout }) => {
     <Menu
       mode="horizontal"
       items={items}
+      // triggerSubMenuAction="click"
       onClick={onClick}
       style={{ fontSize: "18px", borderBottom: "none" }}
     />

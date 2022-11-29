@@ -1,4 +1,4 @@
-import jwt, { Jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { authConfig } from "../config/auth.config";
 import { NextFunction, Request, Response } from "express";
 import prisma from "../prisma/prismaClient";

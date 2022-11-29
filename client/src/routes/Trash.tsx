@@ -36,6 +36,8 @@ const Trash: React.FC = () => {
     confirm({
       title: "Are you sure you want to delete this list permanently?",
       icon: <ExclamationCircleFilled />,
+      okType: "danger",
+      okText: "Delete",
       onOk() {
         if (!listId || !userId)
           return console.log("Either listId or userId is undefined");
