@@ -1,11 +1,12 @@
-import { Avatar, Button } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import findUser from "../api/routes/userRoutes/findUser";
 import { LogoWrapper, RightNav } from "../styled/headerStyled";
 import { User } from "../types/types";
 import logo from "../assets/logo.jpg";
+import UserMenu from "./UserMenu";
+
 const Header = () => {
   const { userId } = useParams();
   const [user, setUser] = useState({} as User);
@@ -23,6 +24,7 @@ const Header = () => {
     (async () => {
       const user = await findUser(userId);
       setUser(user);
+      console.log(user);
     })();
   }, []);
   return (
@@ -34,8 +36,20 @@ const Header = () => {
       </LogoWrapper>
       <RightNav>
         <div>
-          <Avatar size="large" icon={<UserOutlined />} />
-          <h4>{user.userName}</h4>
+          <UserMenu user={user} handleLogout={handleLogout} />
+          {/* <Menu mode="horizontal" defaultSelectedKeys={["user"]}>
+            <Menu.SubMenu key="Profile-Menu" title={user.userName}>
+              <Menu.Item key="two" icon={<UserOutlined />}>
+                Profile
+              </Menu.Item>
+              <Menu.Item key="trhee" icon={<DeleteOutlined />}>
+                Trash
+              </Menu.Item>
+              <Menu.Item key="four" icon={<LoginOutlined />}>
+                Logut
+              </Menu.Item>
+            </Menu.SubMenu>
+          </Menu> */}
         </div>
         <Button onClick={handleLogout}>Logout</Button>
       </RightNav>
