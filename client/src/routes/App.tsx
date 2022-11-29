@@ -36,6 +36,7 @@ const App: React.FC = () => {
     setLists([...lists, list]);
     setListTitle("");
   };
+
   const handleListDelete = async (listId: string) => {
     if (!listId || !userId)
       return console.log("Either listId or userId is undefined");
@@ -44,6 +45,7 @@ const App: React.FC = () => {
     //sort new list based on the deleted list.
     setLists(lists.filter((list) => list.shoppingListId !== listId));
   };
+
   useEffect(() => {
     if (!userId) return;
     (async () => {

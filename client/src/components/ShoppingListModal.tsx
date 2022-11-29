@@ -33,10 +33,14 @@ const ShoppingListModal = ({
     console.log(updatedTitle);
     const listId = list.shoppingListId;
     const updatedListTitle = await updateList(updatedTitle, listId);
-    setLists(lists.filter((item) => item.shoppingListId !== listId));
-    setLists((lists) => [...lists, updatedListTitle]);
-    //TODO: Still bugged since it get put all the way down, not sure how to fix this...
-    //one way to fix is to just edit the array, find the right index based on listId then alter the title field.
+    //Update state object based on id
+    const newState = lists.map((obj) => {
+      //match id in state with response id
+      if (obj.shoppingListId === updatedListTitle.shoppingListId) {
+        return { ...obj, title: updatedTitle };
+      } else return obj;
+    });
+    setLists(newState);
     setOpen(false);
   };
 
