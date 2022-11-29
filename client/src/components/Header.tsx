@@ -2,7 +2,7 @@ import { Avatar, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import findUser from "../api/routes/findUser";
+import findUser from "../api/routes/userRoutes/findUser";
 import { LogoWrapper, RightNav } from "../styled/headerStyled";
 import { User } from "../types/types";
 import logo from "../assets/logo.jpg";
@@ -10,6 +10,7 @@ const Header = () => {
   const { userId } = useParams();
   const [user, setUser] = useState({} as User);
   const navigate = useNavigate();
+  const localStorageUserId = JSON.parse(localStorage.getItem("userId")!);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -27,7 +28,7 @@ const Header = () => {
   return (
     <>
       <LogoWrapper className="logoWrapper">
-        <Link to={`/app/user/${userId}`}>
+        <Link to={`/app/user/${localStorageUserId}`}>
           <img src={logo} alt="logo" />
         </Link>
       </LogoWrapper>
