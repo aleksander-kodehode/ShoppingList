@@ -11,6 +11,7 @@ import statusMessage from "../components/StatusMessage";
 import ShoppingListModal from "../components/ShoppingListModal";
 import toggleSoftDelete from "../api/routes/listRoutes/toggleSoftDelete";
 import noDataSvg from "../assets/undrawNoData.svg";
+import { Helmet } from "react-helmet";
 
 const App: React.FC = () => {
   const { userId } = useParams();
@@ -61,6 +62,9 @@ const App: React.FC = () => {
   } else
     return (
       <AppContainer className="App">
+        <Helmet>
+          <title>Shopping Lists</title>
+        </Helmet>
         {statusMessageModal}
         {/* <Form */}
         <Form
@@ -125,6 +129,9 @@ const App: React.FC = () => {
           ) : (
             <List size="small">
               <div className="noDataAvailable">
+                <Helmet>
+                  <title>Shopping Lists</title>
+                </Helmet>
                 <h2>There are no lists, start creating!</h2>
                 <img src={noDataSvg} alt="No lists avaialable" width="60%" />
               </div>

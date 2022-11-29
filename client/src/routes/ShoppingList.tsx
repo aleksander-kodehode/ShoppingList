@@ -17,12 +17,13 @@ import {
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import handleListItemChecked from "../api/routes/itemRoutes/handleListItemChecked";
 import noDataChorelist from "../assets/undrawChorelist.svg";
+import { Helmet } from "react-helmet";
 
 const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();
   const [itemTitle, setItemTitle] = useState("");
   const [listItems, setListItems] = useState([] as ListItem[]);
-  const [lists, setLists] = useState([] as ShoppingListType[]);
+  const [listName, setListName] = useState("");
   const [loading, setLoading] = useState(false);
   const [newArr, setNewArr] = useState();
   //Status pop ups
@@ -88,11 +89,18 @@ const ShoppingList: React.FC = () => {
     setListItems(listItems.filter((item) => item.itemId !== itemId));
     //sort new list based on the deleted list.
   };
+
   const getListName = async () => {
     if (!userId) return;
-    const shoppingLists = await getShoppingList(userId);
-    setLists(shoppingLists);
+    const shoppingListsItems = await getShoppingList(userId);
+    const listName: any = shoppingListsItems.map((shopList) => {
+      if (shopList.shoppingListId === listId) {
+        return shopList.title;
+      }
+    });
+    setListName(listName);
   };
+
   const getListItems = useCallback(async () => {
     if (!listId || !userId) return;
     setLoading(true);
@@ -109,27 +117,27 @@ const ShoppingList: React.FC = () => {
   useEffect(() => {
     getListItems();
     getListName();
-    console.log("useEffect is running");
   }, [getListItems]);
 
   if (loading) {
     return (
       <PageContainer className="Loading">
+        <Helmet>
+          <title>List View</title>
+        </Helmet>
         <LoadingOutlined style={{ fontSize: "80px" }} />;
       </PageContainer>
     );
   } else
     return (
       <PageContainer className="shopping-list-view">
+        <Helmet>
+          <title>List View</title>
+        </Helmet>
         {statusMessageModal}
         <div className="title-wrapper">
           <BackButton />
-          <h1>
-            {lists.length > 0 &&
-              lists.map((list, idx) => {
-                return list.shoppingListId === listId ? list.title : null;
-              })}
-          </h1>
+          <h1>{listName}</h1>
         </div>
         <Form
           name="create-new-item"
@@ -204,6 +212,9 @@ const ShoppingList: React.FC = () => {
           ) : (
             <List size="small">
               <div className="noDataAvailable">
+                <Helmet>
+                  <title>List View</title>
+                </Helmet>
                 <h2>Nothing to remember here, start adding!</h2>
                 <img
                   src={noDataChorelist}

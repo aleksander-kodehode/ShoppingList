@@ -1,6 +1,7 @@
 import apiConfig from "../api/config";
 import LoginForm from "../components/forms/LoginForm";
 import { FormWrapper } from "../styled/landingPageStyled";
+import { Helmet } from "react-helmet";
 
 const LandingPage: React.FC = () => {
   //check if user is logged in or not.
@@ -13,6 +14,9 @@ const LandingPage: React.FC = () => {
   //Match token with a user, if user is found consider them logged in
   return (
     <>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <h1>SHOPPING LIST APP</h1>
       <FormWrapper>
         <LoginForm />
