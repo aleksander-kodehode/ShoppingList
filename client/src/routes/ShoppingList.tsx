@@ -25,7 +25,7 @@ const ShoppingList: React.FC = () => {
   const [listItems, setListItems] = useState([] as ListItem[]);
   const [listName, setListName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [newArr, setNewArr] = useState();
+
   //Status pop ups
   const {
     openSuccessMessage,
