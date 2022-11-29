@@ -1,9 +1,6 @@
 import { authHeader } from "../../../services/authHeader";
 import apiConfig from "../../config";
 
-//Post to get token and id of user when he enter website
-//--> GET user
-
 const findUser = async (userId: string) => {
   const token = authHeader();
   const res = await fetch(`${apiConfig.server}/user/${userId}`, {

@@ -3,11 +3,9 @@ import LoginForm from "../components/forms/LoginForm";
 import { FormWrapper } from "../styled/landingPageStyled";
 
 const LandingPage: React.FC = () => {
+  //check if user is logged in or not.
   if (localStorage.hasOwnProperty("token")) {
     const token = localStorage.getItem("token") || "";
-    // console.log(`Token found: ${token}`);
-
-    //check if user is logged in or not.
     async () => {
       const response = fetch(`${apiConfig}/`);
     };

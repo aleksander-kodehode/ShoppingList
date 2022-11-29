@@ -14,7 +14,6 @@ import Trash from "./routes/Trash";
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <LandingPage />,
     element: <LandingPage />,
   },
   {

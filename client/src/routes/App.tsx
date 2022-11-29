@@ -17,6 +17,7 @@ const App: React.FC = () => {
   const [listTitle, setListTitle] = useState("");
   const [lists, setLists] = useState([] as ShoppingListType[]);
   const [loading, setLoading] = useState(true);
+
   //Status pop ups
   const {
     openSuccessMessage,
@@ -118,11 +119,6 @@ const App: React.FC = () => {
                     setLists={setLists}
                     handleDelete={handleListDelete}
                   />
-                  {/* <Button
-                  onClick={(e: any) => handleListDelete(list.shoppingListId)}
-                >
-                  <Icon icon="ion:trash-outline" />
-                </Button> */}
                 </List.Item>
               )}
             ></List>

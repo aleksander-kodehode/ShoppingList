@@ -20,6 +20,7 @@ const loginUser = async (username: string, password: string) => {
       localStorage.setItem("accessToken", JSON.stringify(result.token));
       localStorage.setItem("userId", JSON.stringify(result.id));
     }
+    // save result to userContext for profilePage
     return result;
   });
 };

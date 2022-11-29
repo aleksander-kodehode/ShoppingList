@@ -52,13 +52,7 @@ const ShoppingList: React.FC = () => {
       let newArr = Array.prototype.slice.call(listItems);
       newArr.push(listItem);
       newArr.sort((a, b) => Number(a.isChecked) - Number(b.isChecked));
-      setListItems(
-        newArr
-        // [listItem, ...listItems]
-        // .sort(
-        //   (a, b) => Number(a.isChecked) - Number(b.isChecked)
-        // )
-      );
+      setListItems(newArr);
       setItemTitle("");
     }
   };
@@ -177,7 +171,6 @@ const ShoppingList: React.FC = () => {
                       <li className="headerTitle">Title</li>
                       <li>Amount</li>
                       <li>Edit</li>
-                      {/* <li>Delete</li> */}
                     </ul>
                   </div>
                 }
@@ -203,13 +196,6 @@ const ShoppingList: React.FC = () => {
                         listItems={listItems}
                         listId={listId!}
                       />
-                      {/* <Button
-                      onClick={(e: any) =>
-                        handleItemDelete(item.itemId, item.item)
-                      }
-                    >
-                      X
-                    </Button> */}
                     </div>
                   </List.Item>
                 )}

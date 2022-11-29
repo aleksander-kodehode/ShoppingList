@@ -37,19 +37,6 @@ const Header = () => {
       <RightNav>
         <div>
           <UserMenu user={user} handleLogout={handleLogout} />
-          {/* <Menu mode="horizontal" defaultSelectedKeys={["user"]}>
-            <Menu.SubMenu key="Profile-Menu" title={user.userName}>
-              <Menu.Item key="two" icon={<UserOutlined />}>
-                Profile
-              </Menu.Item>
-              <Menu.Item key="trhee" icon={<DeleteOutlined />}>
-                Trash
-              </Menu.Item>
-              <Menu.Item key="four" icon={<LoginOutlined />}>
-                Logut
-              </Menu.Item>
-            </Menu.SubMenu>
-          </Menu> */}
         </div>
       </RightNav>
     </>

@@ -7,13 +7,6 @@ export const createListItem = async (req: Request, res: Response) => {
     await prisma.$connect();
     const { listId } = req.params;
     const itemTitle = await req.body.itemTitle;
-    // TODO: Update testing
-    // const createdList = await prisma.listData.updateMany({
-    //   where: { item: itemTitle },
-    //   data: {
-    //     amount: { increment: 1 },
-    //   },
-    // });
     const createdList = await prisma.listData.create({
       data: {
         item: itemTitle,

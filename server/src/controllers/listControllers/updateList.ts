@@ -12,21 +12,6 @@ export const updateList = async (req: Request, res: Response) => {
       data: {
         title: title,
       },
-      //   data: {
-      //     title: title,
-      //     creator: {
-      //       connectOrCreate: {
-      //         where: {
-      //           id: userId,
-      //         },
-      //         create: {
-      //           //This will never be used, but is needed
-      //           userName: "Fallback User",
-      //           password: "fallback",
-      //         },
-      //       },
-      //     },
-      //   },
     });
     res.json(updatedList);
   } catch (e) {

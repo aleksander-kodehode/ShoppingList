@@ -74,9 +74,6 @@ const ShoppingListModal = ({
           name="UpdateList"
           onFinish={handleOk}
           initialValues={{ remember: true }}
-          // onFinish={handleDeleteItem}
-          // style={{ width: "400px" }}
-          // onFinishFailed={handleDeleteFailed}
         >
           <Form.Item name="Title" label="Change title">
             <Input
