@@ -133,7 +133,7 @@ const App: React.FC = () => {
                   <title>Shopping Lists</title>
                 </Helmet>
                 <h2>There are no lists, start creating!</h2>
-                <img src={noDataSvg} alt="No lists avaialable" width="60%" />
+                <img src={noDataSvg} alt="No lists available" width="60%" />
               </div>
             </List>
           )}

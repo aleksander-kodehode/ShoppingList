@@ -43,7 +43,7 @@ const ShoppingList: React.FC = () => {
       if (item.item === itemTitle) {
         match = false;
         return openWarningMessage(
-          "Item allready in list, try changing the amount"
+          "Item already in list, try changing the amount"
         );
       }
     });
@@ -218,7 +218,7 @@ const ShoppingList: React.FC = () => {
                 <h2>Nothing to remember here, start adding!</h2>
                 <img
                   src={noDataChorelist}
-                  alt="No lists avaialable"
+                  alt="No lists available"
                   width="60%"
                 />
               </div>
