@@ -29,6 +29,9 @@ export const FormContainer = styled.div`
     20.3px 6.9px 41.2px -7px rgba(0, 0, 0, 0.039),
     38px 13px 50px -7px rgba(0, 0, 0, 0.051),
     91px 31px 80px -7px rgba(0, 0, 0, 0.09);
+  @media (max-width: 600px) {
+    width: 95%;
+  }
 `;
 
 //Register form overrides

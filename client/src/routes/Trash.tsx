@@ -2,16 +2,19 @@ import { useCallback, useEffect, useState } from "react";
 import {
   FrownOutlined,
   UndoOutlined,
+  DeleteOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
 import { ShoppingListType } from "../types/types";
 import { List, Button } from "antd";
 import { useParams } from "react-router-dom";
 import { ListContainer } from "../styled/appStyled";
-import statusMessage from "../components/StatusMessage";
 import getDeletedShoppingList from "../api/routes/listRoutes/getDeletedShoppingList";
-import recoverList from "../api/routes/listRoutes/recoverList";
+import toggleSoftDelete from "../api/routes/listRoutes/toggleSoftDelete";
 import { TrashContainer } from "../styled/trashStyled";
+import statusMessage from "../components/StatusMessage";
+import voidSvg from "../assets/undrawVoid.svg";
+import deleteList from "../api/routes/listRoutes/deleteList";
 
 const Trash: React.FC = () => {
   const { userId } = useParams();
@@ -25,25 +28,36 @@ const Trash: React.FC = () => {
     statusMessageModal,
   } = statusMessage();
 
+  const handleDeleteList = async (listId: string) => {
+    console.log("Perma delete");
+    if (!listId || !userId)
+      return console.log("Either listId or userId is undefined");
+    openWarningMessage(`List was permenantly deleted`);
+    const deletedList = await deleteList(userId, listId);
+    //sort new list based on the deleted list.
+    setLists(lists.filter((list) => list.shoppingListId !== listId));
+  };
+
   const handleRecovery = async (listId: string) => {
     if (!userId) return openErrorMessage("Could not find userId");
-    const res: ShoppingListType = await recoverList(listId, userId);
+    const res: ShoppingListType = await toggleSoftDelete(listId, userId, false);
     console.log(res);
     getDeletedLists();
+    openSuccessMessage("List was moved back to Shopping Lists");
   };
 
   const getDeletedLists = useCallback(async () => {
     if (!userId) return;
     const res = await getDeletedShoppingList(userId);
     //Fake delay to showcase loading.
-    setTimeout(() => {
-      setLists(res);
-      setLoading(false);
-    }, 1000);
+    setLists(res);
+    setLoading(false);
   }, [setLists]);
 
   useEffect(() => {
-    getDeletedLists();
+    setTimeout(() => {
+      getDeletedLists();
+    }, 1000);
   }, [getDeletedLists]);
 
   if (loading) {
@@ -72,6 +86,15 @@ const Trash: React.FC = () => {
                     <h2>{list.title}</h2>
                   </div>
                   <Button
+                    danger={true}
+                    style={{ marginRight: "15px" }}
+                    className="delete"
+                    onClick={(e: any) => handleDeleteList(list.shoppingListId)}
+                  >
+                    <DeleteOutlined />
+                  </Button>
+                  <Button
+                    className="recover"
                     onClick={(e: any) => handleRecovery(list.shoppingListId)}
                   >
                     <UndoOutlined />
@@ -80,9 +103,17 @@ const Trash: React.FC = () => {
               )}
             ></List>
           ) : (
-            <List size="small" bordered>
-              <List.Item>You dont seem to have any deleted lists</List.Item>
-            </List>
+            <TrashContainer className="Trash">
+              <div className="noDataAvailable">
+                <h2>Your trash is empty</h2>
+                <img
+                  src={voidSvg}
+                  alt="Trash is empty"
+                  width="60%"
+                  style={{ marginRight: "90px" }}
+                />
+              </div>
+            </TrashContainer>
           )}
         </ListContainer>
       </TrashContainer>

@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import getShoppingList from "../api/routes/listRoutes/getShoppingLists";
-import { ShoppingListType, User } from "../types/types";
-import { List, Button, Form, Input, Modal } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { ShoppingListType } from "../types/types";
+import { List, Button, Form, Input } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import { Link, useParams } from "react-router-dom";
 import createList from "../api/routes/listRoutes/createNewList";
-import deleteList from "../api/routes/listRoutes/deleteList";
-import { AppContainer, ListContainer, Lists } from "../styled/appStyled";
+import { AppContainer, ListContainer } from "../styled/appStyled";
 import statusMessage from "../components/StatusMessage";
 import ShoppingListModal from "../components/ShoppingListModal";
+import toggleSoftDelete from "../api/routes/listRoutes/toggleSoftDelete";
+import noDataSvg from "../assets/undrawNoData.svg";
 
 const App: React.FC = () => {
   const { userId } = useParams();
   const [listTitle, setListTitle] = useState("");
   const [lists, setLists] = useState([] as ShoppingListType[]);
+  const [loading, setLoading] = useState(true);
   //Status pop ups
   const {
     openSuccessMessage,
@@ -36,96 +38,105 @@ const App: React.FC = () => {
   const handleListDelete = async (listId: string) => {
     if (!listId || !userId)
       return console.log("Either listId or userId is undefined");
-    const deletedList = await deleteList(userId, listId);
+    openWarningMessage(`List was moved to trash`);
+    const deletedList = await toggleSoftDelete(listId, userId, true);
     //sort new list based on the deleted list.
     setLists(lists.filter((list) => list.shoppingListId !== listId));
-    openWarningMessage(`Deleted list: ${deletedList.list.title}`);
   };
   useEffect(() => {
     if (!userId) return;
     (async () => {
-      // const currentUser = await findUser(tokenId);
-      // setUser(currentUser);
       const res = await getShoppingList(userId);
       setLists(res);
+      setLoading(false);
     })();
   }, []);
-  return (
-    <AppContainer className="App">
-      {statusMessageModal}
-      {/* <Form */}
-      <Form
-        name="create-new-item"
-        initialValues={{ remember: true }}
-        onFinish={handleCreateNewList}
-        className="FormNewItem"
-      >
-        <Form.Item>
-          <Input.Group compact>
-            <Input
-              style={{ width: "calc(100% - 200px)" }}
-              allowClear={true}
-              size="large"
-              value={listTitle}
-              minLength={2}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setListTitle(e.target.value);
-              }}
-              placeholder="List name"
-            />
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="large"
-              style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-            >
-              Add List
-            </Button>
-          </Input.Group>
-        </Form.Item>
-      </Form>
-      <ListContainer>
-        {lists.length > 0 ? (
-          <List
-            itemLayout="horizontal"
-            size="small"
-            dataSource={lists}
-            renderItem={(list) => (
-              <List.Item>
-                <span>
-                  <Icon
-                    icon="material-symbols:format-list-numbered-rounded"
-                    width="42"
+  if (loading) {
+    return (
+      <AppContainer className="Loading">
+        <LoadingOutlined style={{ fontSize: "80px" }} />;
+      </AppContainer>
+    );
+  } else
+    return (
+      <AppContainer className="App">
+        {statusMessageModal}
+        {/* <Form */}
+        <Form
+          name="create-new-item"
+          initialValues={{ remember: true }}
+          onFinish={handleCreateNewList}
+          className="FormNewItem"
+        >
+          <Form.Item>
+            <Input.Group compact>
+              <Input
+                style={{ width: "calc(100% - 200px)" }}
+                allowClear={true}
+                size="large"
+                value={listTitle}
+                minLength={2}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setListTitle(e.target.value);
+                }}
+                placeholder="List name"
+              />
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+              >
+                Add List
+              </Button>
+            </Input.Group>
+          </Form.Item>
+        </Form>
+        <ListContainer>
+          {lists.length > 0 ? (
+            <List
+              itemLayout="horizontal"
+              size="small"
+              dataSource={lists}
+              renderItem={(list) => (
+                <List.Item>
+                  <span>
+                    <Icon
+                      icon="material-symbols:format-list-numbered-rounded"
+                      width="42"
+                    />
+                  </span>
+                  <div>
+                    <Link to={`${list.shoppingListId}`}>
+                      <h2>{list.title}</h2>
+                    </Link>
+                    <span>{list.created_at.replace(/[-]/g, "-")}</span>
+                  </div>
+                  <ShoppingListModal
+                    list={list}
+                    lists={lists}
+                    setLists={setLists}
+                    handleDelete={handleListDelete}
                   />
-                </span>
-                <div>
-                  <Link to={`${list.shoppingListId}`}>
-                    <h2>{list.title}</h2>
-                  </Link>
-                  <span>{list.created_at.replace(/[-]/g, "-")}</span>
-                </div>
-                <ShoppingListModal
-                  list={list}
-                  lists={lists}
-                  setLists={setLists}
-                  handleDelete={handleListDelete}
-                />
-                {/* <Button
+                  {/* <Button
                   onClick={(e: any) => handleListDelete(list.shoppingListId)}
                 >
                   <Icon icon="ion:trash-outline" />
                 </Button> */}
-              </List.Item>
-            )}
-          ></List>
-        ) : (
-          <List size="small" bordered>
-            <List.Item>Start adding items to get your own list</List.Item>
-          </List>
-        )}
-      </ListContainer>
-    </AppContainer>
-  );
+                </List.Item>
+              )}
+            ></List>
+          ) : (
+            <List size="small">
+              <div className="noDataAvailable">
+                <h2>There are no lists, start creating!</h2>
+                <img src={noDataSvg} alt="No lists avaialable" width="60%" />
+              </div>
+            </List>
+          )}
+        </ListContainer>
+      </AppContainer>
+    );
 };
 
 export default App;

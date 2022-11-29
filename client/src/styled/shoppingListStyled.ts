@@ -6,6 +6,12 @@ export const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  & form#create-new-item {
+    width: 500px;
+    @media (max-width: 600px) {
+      width: 95%;
+    }
+  }
   & .title-wrapper {
     display: flex;
     width: 70%;
@@ -16,9 +22,15 @@ export const PageContainer = styled.div`
     @media (max-width: 600px) {
       width: 95%;
     }
+    @media (max-width: 320px) {
+      flex-direction: column;
+    }
     & > button {
       position: absolute;
       left: 0;
+      @media (max-width: 320px) {
+        position: relative;
+      }
     }
   }
 `;
