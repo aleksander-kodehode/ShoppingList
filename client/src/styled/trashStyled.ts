@@ -3,7 +3,7 @@ import { AppContainer } from "./appStyled";
 
 export const TrashContainer = styled(AppContainer)`
   & .ant-list-item {
-    & button {
+    & button.recover {
       & svg {
         transition: transform 350ms cubic-bezier(0.215, 0.61, 0.355, 1);
       }
