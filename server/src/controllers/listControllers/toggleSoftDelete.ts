@@ -2,14 +2,14 @@ import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import prisma from "../../prisma/prismaClient";
 
-export const recoverList = async (req: Request, res: Response) => {
+export const toggleSoftDelete = async (req: Request, res: Response) => {
   try {
     await prisma.$connect();
-    const { listId } = await req.body;
+    const { listId, toggleDeleted } = await req.body;
     const updatedList = await prisma.shoppingList.update({
       where: { shoppingListId: listId },
       data: {
-        deleted: false,
+        deleted: toggleDeleted,
       },
     });
     res.json(updatedList);

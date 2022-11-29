@@ -15,8 +15,7 @@ import { updateList } from "../controllers/listControllers/updateList";
 import { isChecked } from "../controllers/listItemControllers/itemIsCheckedController";
 import { updateItem } from "../controllers/listItemControllers/itemUpdateController";
 import { getDeletedShoppingLists } from "../controllers/listControllers/getDeletedLists";
-import { recoverList } from "../controllers/listControllers/recoverListController";
-import { softDelete } from "../middleware/softDelete";
+import { toggleSoftDelete } from "../controllers/listControllers/toggleSoftDelete";
 
 const router = express.Router();
 
@@ -24,14 +23,14 @@ const router = express.Router();
 router.get("/user/:userId", verifyToken, findUser);
 router.get("/user/:userId/list", verifyToken, getShoppingLists);
 router.get("/user/:userId/recover", verifyToken, getDeletedShoppingLists);
-router.post("/user/:userId/recover", verifyToken, recoverList);
+router.post("/user/:userId/recover", verifyToken, toggleSoftDelete);
 router.post("/user/:userId/list", verifyToken, updateList);
-router.get("/user/:userId/:listId", getShoppingListsItems);
+router.get("/user/:userId/:listId", verifyToken, getShoppingListsItems);
 router.post("/user/:userId/:listId", verifyToken, createListItem);
 router.delete("/user/:userId/:listId", verifyToken, deleteListItem);
 router.post("/user/:userId/:listId/:itemId", verifyToken, isChecked);
 router.post("/user/:userId/:listId/:itemId/update", verifyToken, updateItem);
-router.post("/user/:userId", createList);
+router.post("/user/:userId", verifyToken, createList);
 router.delete("/user/:userId", verifyToken, deleteList);
 
 //auth
