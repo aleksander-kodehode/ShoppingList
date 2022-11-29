@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ShoppingListType, ListItem } from "../types/types";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/buttons/BackButton";
@@ -82,11 +82,9 @@ const ShoppingList: React.FC = () => {
         } else return { ...obj, isChecked: false };
       } else return obj;
     });
-    //TODO: Fix Visual bug with checkmark to sort the list on click
-    setListItems(
-      newState
-      // .sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
-    );
+    setListItems(newState);
+    //TODO: Requires a state refresh
+    // getListItems();
   };
   const handleItemDelete = async (itemId: number, itemTitle: string) => {
     if (!itemId || !userId || !listId)
@@ -96,21 +94,29 @@ const ShoppingList: React.FC = () => {
     setListItems(listItems.filter((item) => item.itemId !== itemId));
     //sort new list based on the deleted list.
   };
-  useEffect(() => {
+  const getListName = async () => {
+    if (!userId) return;
+    const shoppingLists = await getShoppingList(userId);
+    setLists(shoppingLists);
+  };
+  const getListItems = useCallback(async () => {
     if (!listId || !userId) return;
-    (async () => {
-      setLoading(true);
-      const shoppingListsItems = await getShoppingListItems(userId, listId);
-      setListItems(
-        shoppingListsItems.sort(
-          (a, b) => Number(a.isChecked) - Number(b.isChecked)
-        )
-      );
-      const shoppingLists = await getShoppingList(userId);
-      setLists(shoppingLists);
-      setLoading(false);
-    })();
-  }, []);
+    setLoading(true);
+    const shoppingListsItems = await getShoppingListItems(userId, listId);
+    //Fake delay to showcase loading.
+    setListItems(
+      shoppingListsItems.sort(
+        (a, b) => Number(a.isChecked) - Number(b.isChecked)
+      )
+    );
+    setLoading(false);
+  }, [setListItems]);
+
+  useEffect(() => {
+    getListItems();
+    getListName();
+    console.log("useEffect is running");
+  }, [getListItems]);
 
   if (loading) {
     return (
