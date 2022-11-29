@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
+import App from "./routes/App";
 import LandingPage from "./routes/LandingPage";
 import Root from "./routes/Root";
 import ShoppingList from "./routes/ShoppingList";

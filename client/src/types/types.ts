@@ -9,6 +9,7 @@ export type ShoppingListType = {
   creatorId: string;
   listItems?: string[];
   shoppingListId: string;
+  deleted: boolean;
 };
 export type ListItem = {
   item: string;

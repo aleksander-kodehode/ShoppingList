@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   FrownOutlined,
   UndoOutlined,
@@ -7,10 +7,11 @@ import {
 import { ShoppingListType } from "../types/types";
 import { List, Button } from "antd";
 import { useParams } from "react-router-dom";
-import { AppContainer, ListContainer } from "../styled/appStyled";
+import { ListContainer } from "../styled/appStyled";
 import statusMessage from "../components/StatusMessage";
 import getDeletedShoppingList from "../api/routes/listRoutes/getDeletedShoppingList";
 import recoverList from "../api/routes/listRoutes/recoverList";
+import { TrashContainer } from "../styled/trashStyled";
 
 const Trash: React.FC = () => {
   const { userId } = useParams();
@@ -26,37 +27,34 @@ const Trash: React.FC = () => {
 
   const handleRecovery = async (listId: string) => {
     if (!userId) return openErrorMessage("Could not find userId");
-    const res = await recoverList(listId, userId);
-    openSuccessMessage("List was recovered successfully!");
+    const res: ShoppingListType = await recoverList(listId, userId);
     console.log(res);
-
-    //either fetch lists again, or edit the lists array and remove the object that returned
-    //and set it as new state
-    console.log("Tried to recover list;", listId);
+    getDeletedLists();
   };
 
-  useEffect(() => {
+  const getDeletedLists = useCallback(async () => {
     if (!userId) return;
-    (async () => {
-      const res = await getDeletedShoppingList(userId);
-      setTimeout(() => {
-        setLists(res);
-        setLoading(false);
-      }, 1000);
-      // const currentUser = await findUser(tokenId);
-      // setUser(currentUser);
-    })();
-  }, []);
+    const res = await getDeletedShoppingList(userId);
+    //Fake delay to showcase loading.
+    setTimeout(() => {
+      setLists(res);
+      setLoading(false);
+    }, 1000);
+  }, [setLists]);
+
+  useEffect(() => {
+    getDeletedLists();
+  }, [getDeletedLists]);
 
   if (loading) {
     return (
-      <AppContainer className="App">
+      <TrashContainer className="Trash">
         <LoadingOutlined style={{ fontSize: "80px" }} />;
-      </AppContainer>
+      </TrashContainer>
     );
   } else
     return (
-      <AppContainer className="App">
+      <TrashContainer className="Trash">
         {statusMessageModal}
         <ListContainer>
           {lists.length > 0 ? (
@@ -87,7 +85,7 @@ const Trash: React.FC = () => {
             </List>
           )}
         </ListContainer>
-      </AppContainer>
+      </TrashContainer>
     );
 };
 
