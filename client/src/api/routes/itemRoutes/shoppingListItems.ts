@@ -1,6 +1,6 @@
-import { authHeader } from "../../services/authHeader";
-import { ListItem } from "../../types/types";
-import apiConfig from "../config";
+import { authHeader } from "../../../services/authHeader";
+import { ListItem } from "../../../types/types";
+import apiConfig from "../../config";
 
 const getShoppingListItems = async (
   userId: String,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal, Form, Input, ModalFuncProps } from "antd";
 import { Icon } from "@iconify/react";
 import { ListItem, ShoppingListType } from "../types/types";
-import updateList from "../api/routes/updateList";
+import updateList from "../api/routes/listRoutes/updateList";
 
 interface FuncProps {
   list: ShoppingListType;

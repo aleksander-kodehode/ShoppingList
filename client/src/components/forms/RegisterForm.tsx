@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import createUser from "../../api/routes/createUser";
+import createUser from "../../api/routes/userRoutes/createUser";
 import { Button, Form, Input } from "antd";
 import { RegFormContainer, RegFormItem } from "../../styled/landingPageStyled";
 import BackButton from "../buttons/BackButton";

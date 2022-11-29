@@ -1,5 +1,5 @@
-import { authHeader } from "../../services/authHeader";
-import apiConfig from "../config";
+import { authHeader } from "../../../services/authHeader";
+import apiConfig from "../../config";
 
 const checkLoggedIn = async () => {
   const token = authHeader();

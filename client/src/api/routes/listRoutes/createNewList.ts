@@ -1,4 +1,4 @@
-import apiConfig from "../config";
+import apiConfig from "../../config";
 
 const createList = async (userId: string, title: string) => {
   const res = await fetch(`${apiConfig.server}/user/${userId}`, {

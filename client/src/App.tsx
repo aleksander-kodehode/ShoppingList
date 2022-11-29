@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import getShoppingList from "./api/routes/getShoppingLists";
+import getShoppingList from "./api/routes/listRoutes/getShoppingLists";
 import { ShoppingListType, User } from "./types/types";
 import { List, Button, Form, Input, Modal } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import { Link, useParams } from "react-router-dom";
-import createList from "./api/routes/createNewList";
-import deleteList from "./api/routes/deleteList";
+import createList from "./api/routes/listRoutes/createNewList";
+import deleteList from "./api/routes/listRoutes/deleteList";
 import { AppContainer, ListContainer, Lists } from "./styled/appStyled";
 import statusMessage from "./components/StatusMessage";
 import ShoppingListModal from "./components/ShoppingListModal";

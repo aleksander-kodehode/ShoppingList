@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal, Form, Input, InputNumber } from "antd";
 import { Icon } from "@iconify/react";
 import { ListItem } from "../types/types";
-import updateListItem from "../api/routes/updateListItem";
+import updateListItem from "../api/routes/itemRoutes/updateListItem";
 
 interface FuncProps {
   currentListItem: ListItem;

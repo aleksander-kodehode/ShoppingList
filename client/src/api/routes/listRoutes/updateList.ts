@@ -1,5 +1,5 @@
-import { authHeader } from "../../services/authHeader";
-import apiConfig from "../config";
+import { authHeader } from "../../../services/authHeader";
+import apiConfig from "../../config";
 
 const updateList = async (title: string, listId: string) => {
   const userId = JSON.parse(localStorage.getItem("userId")!);

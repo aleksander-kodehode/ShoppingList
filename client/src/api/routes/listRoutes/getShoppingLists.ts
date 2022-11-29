@@ -1,6 +1,6 @@
-import { authHeader } from "../../services/authHeader";
-import { ShoppingListType } from "../../types/types";
-import apiConfig from "../config";
+import { authHeader } from "../../../services/authHeader";
+import { ShoppingListType } from "../../../types/types";
+import apiConfig from "../../config";
 
 const getShoppingList = async (userId: String): Promise<ShoppingListType[]> => {
   const token = authHeader();

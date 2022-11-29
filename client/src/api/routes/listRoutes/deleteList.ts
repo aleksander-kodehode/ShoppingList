@@ -1,5 +1,5 @@
-import { authHeader } from "../../services/authHeader";
-import apiConfig from "../config";
+import { authHeader } from "../../../services/authHeader";
+import apiConfig from "../../config";
 
 const deleteList = async (userId: string, listId: string) => {
   const token = authHeader();

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { ShoppingListType, ListItem } from "../types/types";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/buttons/BackButton";
-import getShoppingListItems from "../api/routes/shoppingListItems";
-import createListItem from "../api/routes/createItem";
-import deleteItem from "../api/routes/deleteItem";
-import getShoppingList from "../api/routes/getShoppingLists";
+import getShoppingListItems from "../api/routes/itemRoutes/shoppingListItems";
+import createListItem from "../api/routes/itemRoutes/createItem";
+import deleteItem from "../api/routes/itemRoutes/deleteItem";
+import getShoppingList from "../api/routes/listRoutes/getShoppingLists";
 import { Input, Button, Form, List, Checkbox } from "antd";
 import ListItemModal from "../components/ListItemModal";
 import statusMessage from "../components/StatusMessage";
@@ -14,7 +14,7 @@ import {
   PageContainer,
 } from "../styled/shoppingListStyled";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import handleListItemChecked from "../api/routes/handleListItemChecked";
+import handleListItemChecked from "../api/routes/itemRoutes/handleListItemChecked";
 
 const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();

@@ -1,4 +1,4 @@
-import apiConfig from "../config";
+import apiConfig from "../../config";
 
 const createUser = async (username: string, password: string) => {
   const res = await fetch(`${apiConfig.server}/auth/register`, {

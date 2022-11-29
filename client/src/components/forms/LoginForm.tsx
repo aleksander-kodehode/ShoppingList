@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
-import loginUser from "../../api/routes/loginUser";
+import loginUser from "../../api/routes/userRoutes/loginUser";
 import statusMessage from "../StatusMessage";
 import { FormContainer } from "../../styled/landingPageStyled";
 import { authHeader } from "../../services/authHeader";
-import checkLoggedIn from "../../api/routes/checkIfLoggedIn";
+import checkLoggedIn from "../../api/routes/userRoutes/checkIfLoggedIn";
 
 const LoginForm = () => {
   const [handleName, setHandleName] = useState("");
