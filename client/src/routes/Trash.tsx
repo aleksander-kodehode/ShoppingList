@@ -16,7 +16,6 @@ import { TrashContainer } from "../styled/trashStyled";
 import statusMessage from "../components/StatusMessage";
 import voidSvg from "../assets/undrawVoid.svg";
 import deleteList from "../api/routes/listRoutes/deleteList";
-import { Helmet } from "react-helmet";
 
 const { confirm } = Modal;
 
@@ -74,18 +73,12 @@ const Trash: React.FC = () => {
   if (loading) {
     return (
       <TrashContainer className="Trash">
-        <Helmet>
-          <title>Trash</title>
-        </Helmet>
         <LoadingOutlined style={{ fontSize: "80px" }} />;
       </TrashContainer>
     );
   } else
     return (
       <TrashContainer className="Trash">
-        <Helmet>
-          <title>Trash</title>
-        </Helmet>
         {statusMessageModal}
         <ListContainer>
           {lists.length > 0 ? (

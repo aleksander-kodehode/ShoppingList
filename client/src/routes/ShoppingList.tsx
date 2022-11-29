@@ -17,7 +17,6 @@ import {
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import handleListItemChecked from "../api/routes/itemRoutes/handleListItemChecked";
 import noDataChorelist from "../assets/undrawChorelist.svg";
-import { Helmet } from "react-helmet";
 
 const ShoppingList: React.FC = () => {
   const { userId, listId } = useParams();
@@ -122,18 +121,12 @@ const ShoppingList: React.FC = () => {
   if (loading) {
     return (
       <PageContainer className="Loading">
-        <Helmet>
-          <title>List View</title>
-        </Helmet>
         <LoadingOutlined style={{ fontSize: "80px" }} />;
       </PageContainer>
     );
   } else
     return (
       <PageContainer className="shopping-list-view">
-        <Helmet>
-          <title>List View</title>
-        </Helmet>
         {statusMessageModal}
         <div className="title-wrapper">
           <BackButton />
@@ -212,9 +205,6 @@ const ShoppingList: React.FC = () => {
           ) : (
             <List size="small">
               <div className="noDataAvailable">
-                <Helmet>
-                  <title>List View</title>
-                </Helmet>
                 <h2>Nothing to remember here, start adding!</h2>
                 <img
                   src={noDataChorelist}
