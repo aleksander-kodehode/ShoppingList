@@ -4,9 +4,10 @@ import {
   UndoOutlined,
   DeleteOutlined,
   LoadingOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import { ShoppingListType } from "../types/types";
-import { List, Button } from "antd";
+import { List, Button, Modal } from "antd";
 import { useParams } from "react-router-dom";
 import { ListContainer } from "../styled/appStyled";
 import getDeletedShoppingList from "../api/routes/listRoutes/getDeletedShoppingList";
@@ -15,6 +16,8 @@ import { TrashContainer } from "../styled/trashStyled";
 import statusMessage from "../components/StatusMessage";
 import voidSvg from "../assets/undrawVoid.svg";
 import deleteList from "../api/routes/listRoutes/deleteList";
+
+const { confirm } = Modal;
 
 const Trash: React.FC = () => {
   const { userId } = useParams();
@@ -29,13 +32,20 @@ const Trash: React.FC = () => {
   } = statusMessage();
 
   const handleDeleteList = async (listId: string) => {
-    console.log("Perma delete");
-    if (!listId || !userId)
-      return console.log("Either listId or userId is undefined");
-    openWarningMessage(`List was permenantly deleted`);
-    const deletedList = await deleteList(userId, listId);
-    //sort new list based on the deleted list.
-    setLists(lists.filter((list) => list.shoppingListId !== listId));
+    //Handle perma delete with confirm.
+    confirm({
+      title: "Are you sure you want to delete this list permanently?",
+      icon: <ExclamationCircleFilled />,
+      onOk() {
+        if (!listId || !userId)
+          return console.log("Either listId or userId is undefined");
+        openWarningMessage(`List was permenantly deleted`);
+        const deletedList = deleteList(userId, listId).then(() => {
+          setLists(lists.filter((list) => list.shoppingListId !== listId));
+          //sort new list based on the deleted list.
+        });
+      },
+    });
   };
 
   const handleRecovery = async (listId: string) => {
