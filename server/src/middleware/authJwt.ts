@@ -1,7 +1,13 @@
-import jwt from "jsonwebtoken";
+import jwt, { Jwt } from "jsonwebtoken";
 import { authConfig } from "../config/auth.config";
 import { NextFunction, Request, Response } from "express";
 import prisma from "../prisma/prismaClient";
+
+interface MyToken {
+  id: string;
+  iat: number;
+  exp: number;
+}
 
 export const verifyToken = async (
   req: Request,
@@ -24,6 +30,7 @@ export const verifyToken = async (
         code: 401,
       });
     }
+
     if (decoded) {
       // @ts-ignore
       if (decoded.id === userId) {

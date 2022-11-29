@@ -51,7 +51,6 @@ const Header = () => {
             </Menu.SubMenu>
           </Menu> */}
         </div>
-        <Button onClick={handleLogout}>Logout</Button>
       </RightNav>
     </>
   );

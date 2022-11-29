@@ -11,16 +11,20 @@ import { register } from "../controllers/authControllers/registerController";
 import checkDuplicateUserName from "../middleware/verifyRegister";
 import { verifyToken } from "../middleware/authJwt";
 import { checkUserLoggedIn } from "../controllers/authControllers/checkController";
-import { softDelete } from "../middleware/softDelete";
 import { updateList } from "../controllers/listControllers/updateList";
 import { isChecked } from "../controllers/listItemControllers/itemIsCheckedController";
 import { updateItem } from "../controllers/listItemControllers/itemUpdateController";
+import { getDeletedShoppingLists } from "../controllers/listControllers/getDeletedLists";
+import { recoverList } from "../controllers/listControllers/recoverListController";
+import { softDelete } from "../middleware/softDelete";
 
 const router = express.Router();
 
 //App routes
 router.get("/user/:userId", verifyToken, findUser);
 router.get("/user/:userId/list", verifyToken, getShoppingLists);
+router.get("/user/:userId/recover", verifyToken, getDeletedShoppingLists);
+router.post("/user/:userId/recover", verifyToken, recoverList);
 router.post("/user/:userId/list", verifyToken, updateList);
 router.get("/user/:userId/:listId", getShoppingListsItems);
 router.post("/user/:userId/:listId", verifyToken, createListItem);

@@ -9,6 +9,7 @@ import { ConfigProvider } from "antd";
 import { antdConfig } from "./configs/andtConfig";
 import RegisterPage from "./routes/RegisterPage";
 import GlobalStyle from "./globalStyles";
+import Trash from "./routes/Trash";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/app/user/:userId/:listId",
         element: <ShoppingList />,
+      },
+      {
+        path: "/app/user/:userId/recover",
+        element: <Trash />,
       },
     ],
   },

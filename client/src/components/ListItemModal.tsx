@@ -109,7 +109,7 @@ const ListItemModal = ({
           <Form.Item name="Amout" label="Change Change the amount">
             <InputNumber
               value={updatedAmount}
-              max={99}
+              max={9999}
               min={1}
               //@ts-ignore
               onChange={currentNumber}
