@@ -82,6 +82,9 @@ export const ListItemsContainer = styled.div`
         display: grid;
         grid-template-columns: 0.4fr 2fr 0.7fr 0.2fr;
         grid-template-rows: 1fr;
+        flex-wrap: wrap;
+        word-wrap: break-word;
+        white-space: pre-line;
         gap: 0px 10px;
         grid-auto-flow: row;
         grid-template-areas: ". . . .";
@@ -93,8 +96,14 @@ export const ListItemsContainer = styled.div`
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          word-wrap: break-word;
+          overflow: hidden;
+          white-space: initial;
           & h4.item-title {
             margin: 0;
+            white-space: pre-line;
+            word-wrap: break-word;
+            overflow: hidden;
           }
           & .createdAt {
             font-size: 10px;
