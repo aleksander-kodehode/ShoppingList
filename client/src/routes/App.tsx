@@ -45,7 +45,7 @@ const App: React.FC = () => {
     //sort new list based on the deleted list.
     setLists(lists.filter((list) => list.shoppingListId !== listId));
   };
-  function formatDate(d: string) {
+  const formatDate = (d: string) => {
     const time = d.replace(/\D/g, "");
     const year = time.slice(0, 4);
     const month = time.slice(4, 6);
@@ -53,7 +53,7 @@ const App: React.FC = () => {
     const timestamp = d.slice(11, 19);
     const output = `${timestamp} | ${day}-${month}-${year}`;
     return output;
-  }
+  };
   useEffect(() => {
     if (!userId) return;
     (async () => {

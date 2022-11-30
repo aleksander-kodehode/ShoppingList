@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ShoppingListType, ListItem } from "../types/types";
+import { ListItem } from "../types/types";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/buttons/BackButton";
 import getShoppingListItems from "../api/routes/itemRoutes/shoppingListItems";
@@ -99,6 +99,15 @@ const ShoppingList: React.FC = () => {
     });
     setListName(listName);
   };
+  const formatDate = (d: string) => {
+    const time = d.replace(/\D/g, "");
+    const year = time.slice(0, 4);
+    const month = time.slice(4, 6);
+    const day = time.slice(6, 8);
+    const timestamp = d.slice(11, 19);
+    const output = `${timestamp} | ${day}-${month}-${year}`;
+    return output;
+  };
 
   const getListItems = useCallback(async () => {
     if (!listId || !userId) return;
@@ -186,7 +195,9 @@ const ShoppingList: React.FC = () => {
                       />
                       <div className="list-item-title-wrapper">
                         <h4 className="item-title">{item.item}</h4>
-                        <span className="createdAt">{item.created_at}</span>
+                        <span className="createdAt">
+                          {formatDate(item.created_at)}
+                        </span>
                       </div>
                       <span className="itemAmount">{item.amount}</span>
                       <ListItemModal
