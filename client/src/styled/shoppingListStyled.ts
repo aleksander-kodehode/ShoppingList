@@ -11,6 +11,10 @@ export const PageContainer = styled.div`
     @media (max-width: 600px) {
       width: 95%;
     }
+    & button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
   & .title-wrapper {
     display: flex;
