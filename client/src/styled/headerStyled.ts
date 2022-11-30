@@ -15,6 +15,9 @@ export const RightNav = styled.div`
   align-items: center;
   gap: 20px;
   height: 50%;
+  &ul.ant-menu-overflow {
+    background: ${(props) => props.theme.colors.background};
+  }
   & div {
     display: flex;
     flex-direction: row;

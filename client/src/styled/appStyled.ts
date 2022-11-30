@@ -39,13 +39,15 @@ export const ListContainer = styled.div`
     & li {
       display: flex;
       flex-direction: row;
+      color: ${(props) => props.theme.colors.text}!important;
       align-items: flex-start;
-      background: white;
+      background: ${(props) => props.theme.colors.secondary};
       justify-content: flex-start;
       border-radius: 10px;
       margin-bottom: 1.5rem;
       border: 1px solid rgba(5, 5, 5, 0.1);
       transition: box-shadow cubic-bezier(0.175, 0.885, 0.32, 1.275) 360ms;
+
       &:hover {
         box-shadow: 2.5px 0.9px 18.9px -7px rgba(0, 0, 0, 0.021),
           6.1px 2.1px 29.1px -7px rgba(0, 0, 0, 0.028),
@@ -53,6 +55,8 @@ export const ListContainer = styled.div`
           20.3px 6.9px 41.2px -7px rgba(0, 0, 0, 0.039),
           38px 13px 50px -7px rgba(0, 0, 0, 0.051),
           91px 31px 80px -7px rgba(0, 0, 0, 0.09);
+      }
+      & button {
       }
       & .icon-container {
         display: flex;
