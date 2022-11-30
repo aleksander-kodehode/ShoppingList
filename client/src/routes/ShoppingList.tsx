@@ -77,7 +77,7 @@ const ShoppingList: React.FC = () => {
       } else return obj;
     });
     setListItems(newState);
-    //TODO: Requires a state refresh
+    //TODO: Requires a state refresh, find a fix.
     // getListItems();
   };
   const handleItemDelete = async (itemId: number, itemTitle: string) => {
