@@ -75,6 +75,10 @@ export const ListContainer = styled.div`
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      & a {
+        width: 100%;
+        color: #7d8dfe;
+      }
       & a h2 {
         margin: 0;
       }

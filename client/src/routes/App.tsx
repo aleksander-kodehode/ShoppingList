@@ -117,11 +117,13 @@ const App: React.FC = () => {
                       width="42"
                     />
                   </span>
-                  <div>
+                  <div className="textLink">
                     <Link to={`${list.shoppingListId}`}>
-                      <h2>{list.title}</h2>
+                      <div>
+                        <h2>{list.title}</h2>
+                        <span>{formatDate(list.created_at)}</span>
+                      </div>
                     </Link>
-                    <span>{formatDate(list.created_at)}</span>
                   </div>
                   <ShoppingListModal
                     list={list}
