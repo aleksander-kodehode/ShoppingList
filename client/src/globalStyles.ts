@@ -11,8 +11,7 @@ const GlobalStyle = createGlobalStyle`
   line-height: 24px;
   font-weight: 400;
   color: rgba(41, 41, 41, 0.87);
-  background-color: #f0f0f0;
-
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
+  background-color: ${(props) => props.theme.colors.background};
   margin: 0;
   display: flex;
   place-items: center;
