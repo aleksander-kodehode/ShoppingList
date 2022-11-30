@@ -10,8 +10,6 @@ const GlobalStyle = createGlobalStyle`
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  color: rgba(41, 41, 41, 0.87);
-  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -25,6 +23,7 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
+  color: ${(props) => props.theme.colors.text}
 }
 #root {
   margin: 0 auto;
@@ -37,8 +36,7 @@ body {
 }
 header {
   justify-self: flex-start;
-  width: 100%;
-  background-color: rgb(102, 102, 102);
+  width: 100%;;
 }
 main {
   flex: 1 1 auto;

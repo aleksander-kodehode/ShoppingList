@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   flex-direction: row;
   gap: 1rem;
   align-items: center;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.secondary};
   box-sizing: border-box;
   z-index: 1;
   justify-content: space-between;
@@ -26,7 +26,7 @@ export const FooterContainer = styled.footer`
   min-height: 50px;
   gap: 1rem;
   align-items: center;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.secondary};
   box-sizing: border-box;
   justify-content: space-between;
   padding: 0 3rem;

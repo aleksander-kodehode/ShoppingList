@@ -6,6 +6,7 @@ declare module "styled-components" {
 
     colors: {
       background: string;
+      secondary: string;
       text: string;
     };
 
