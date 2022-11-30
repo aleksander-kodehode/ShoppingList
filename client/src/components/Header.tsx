@@ -24,7 +24,6 @@ const Header = () => {
     (async () => {
       const user = await findUser(userId);
       setUser(user);
-      console.log(user);
     })();
   }, []);
   return (

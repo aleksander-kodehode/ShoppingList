@@ -13,8 +13,8 @@ const LandingPage: React.FC = () => {
   //Match token with a user, if user is found consider them logged in
   return (
     <>
-      <h1>SHOPPING LIST APP</h1>
       <FormWrapper>
+        <h1>SHOPPING LIST APP</h1>
         <LoginForm />
       </FormWrapper>
     </>

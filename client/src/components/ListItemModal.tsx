@@ -36,7 +36,6 @@ const ListItemModal = ({
   };
 
   const handleOk = async () => {
-    console.log(updatedName);
     const listItemId = currentListItem.itemId;
     const updatedListItem = await updateListItem(
       listId,
@@ -59,7 +58,6 @@ const ListItemModal = ({
     setUpdatedAmount(value);
   };
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 

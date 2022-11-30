@@ -11,7 +11,7 @@ export const deleteListItem = async (req: Request, res: Response) => {
         itemId: itemId,
       },
     });
-    console.log(`Shopping list ${itemId} was deleted`);
+    console.log(`Shopping list item ${itemId} was deleted`);
     res.json({
       message: `Successfully deleted entry: ${itemId}`,
     });

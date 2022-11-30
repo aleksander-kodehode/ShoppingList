@@ -53,7 +53,6 @@ const Trash: React.FC = () => {
   const handleRecovery = async (listId: string) => {
     if (!userId) return openErrorMessage("Could not find userId");
     const res: ShoppingListType = await toggleSoftDelete(listId, userId, false);
-    console.log(res);
     getDeletedLists();
     openSuccessMessage("List was moved back to Shopping Lists");
   };
@@ -75,7 +74,7 @@ const Trash: React.FC = () => {
   if (loading) {
     return (
       <TrashContainer className="Trash">
-        <LoadingOutlined style={{ fontSize: "80px" }} />;
+        <LoadingOutlined style={{ fontSize: "80px" }} />
       </TrashContainer>
     );
   } else

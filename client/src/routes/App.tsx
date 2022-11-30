@@ -57,7 +57,7 @@ const App: React.FC = () => {
   if (loading) {
     return (
       <AppContainer className="Loading">
-        <LoadingOutlined style={{ fontSize: "80px" }} />;
+        <LoadingOutlined style={{ fontSize: "80px" }} />
       </AppContainer>
     );
   } else

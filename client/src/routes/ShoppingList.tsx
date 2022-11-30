@@ -121,7 +121,7 @@ const ShoppingList: React.FC = () => {
   if (loading) {
     return (
       <PageContainer className="Loading">
-        <LoadingOutlined style={{ fontSize: "80px" }} />;
+        <LoadingOutlined style={{ fontSize: "80px" }} />
       </PageContainer>
     );
   } else
@@ -129,7 +129,7 @@ const ShoppingList: React.FC = () => {
       <PageContainer className="shopping-list-view">
         {statusMessageModal}
         <div className="title-wrapper">
-          <BackButton />
+          <BackButton btnPath={`app/user/${userId}`} />
           <h1>{listName}</h1>
         </div>
         <Form

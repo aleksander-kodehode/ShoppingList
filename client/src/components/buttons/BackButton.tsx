@@ -17,7 +17,11 @@ const BackBtn = styled(Button)`
   }
 `;
 
-const BackButton = () => {
+interface FuncProps {
+  btnPath: string;
+}
+
+const BackButton = ({ btnPath }: FuncProps) => {
   const navigate = useNavigate();
 
   const goBack = () => {

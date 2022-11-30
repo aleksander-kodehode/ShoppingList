@@ -17,7 +17,6 @@ const LoginForm = () => {
 
   const handleUserSubmit = async (e: React.FormEvent) => {
     const user = await loginUser(handleName, handlePassword);
-    console.log(user);
     if (user.code !== 200) return openErrorMessage(user.message);
     setHandleName("");
     setHandlePassword("");

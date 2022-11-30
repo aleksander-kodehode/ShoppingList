@@ -15,6 +15,7 @@ export const login = async (req: Request, res: Response) => {
     })
     .then((user) => {
       if (!user) {
+        console.log("User not in database");
         return res.status(404).send({
           accessToken: null,
           message: "Wrong username, or user doesn't exits",

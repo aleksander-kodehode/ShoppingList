@@ -10,6 +10,7 @@ import { antdConfig } from "./configs/andtConfig";
 import RegisterPage from "./routes/RegisterPage";
 import GlobalStyle from "./globalStyles";
 import Trash from "./routes/Trash";
+import ErrorPage from "./routes/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+    errorElement: <ErrorPage />,
   },
   {
     //TODO: Going to /app displays only header and footer,

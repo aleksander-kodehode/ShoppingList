@@ -7,7 +7,6 @@ const checkLoggedIn = async () => {
   const res = await fetch(`${apiConfig.server}/auth/check/${userId}`, {
     headers: { "Content-Type": "application/json", Authorization: token! },
   });
-  console.log(res.status);
   return res.status;
 };
 

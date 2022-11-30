@@ -30,7 +30,6 @@ const ShoppingListModal = ({
   };
 
   const handleOk = async () => {
-    console.log(updatedTitle);
     const listId = list.shoppingListId;
     const updatedListTitle = await updateList(updatedTitle, listId);
     //Update state object based on id
@@ -45,7 +44,6 @@ const ShoppingListModal = ({
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 
