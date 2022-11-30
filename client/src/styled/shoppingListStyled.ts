@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Input, Button, Form, List, InputNumber, Checkbox } from "antd";
 
 export const PageContainer = styled.div`
   display: flex;
@@ -38,7 +37,6 @@ export const PageContainer = styled.div`
     }
   }
 `;
-
 export const ListItemsContainer = styled.div`
   width: 70%;
   @media (max-width: 600px) {

@@ -24,7 +24,6 @@ export const login = async (req: Request, res: Response) => {
       }
       console.log("User found");
       const validPassword = bcrypt.compareSync(password, user.password);
-      console.log(validPassword);
       if (!validPassword) {
         return res.status(401).send({
           accessToken: null,
