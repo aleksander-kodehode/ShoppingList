@@ -45,7 +45,15 @@ const App: React.FC = () => {
     //sort new list based on the deleted list.
     setLists(lists.filter((list) => list.shoppingListId !== listId));
   };
-
+  function formatDate(d: string) {
+    const time = d.replace(/\D/g, "");
+    const year = time.slice(0, 4);
+    const month = time.slice(4, 6);
+    const day = time.slice(6, 8);
+    const timestamp = d.slice(11, 19);
+    const output = `${timestamp} | ${day}-${month}-${year}`;
+    return output;
+  }
   useEffect(() => {
     if (!userId) return;
     (async () => {
@@ -103,7 +111,7 @@ const App: React.FC = () => {
               dataSource={lists}
               renderItem={(list) => (
                 <List.Item>
-                  <span>
+                  <span className="icon-container">
                     <Icon
                       icon="material-symbols:format-list-numbered-rounded"
                       width="42"
@@ -113,7 +121,7 @@ const App: React.FC = () => {
                     <Link to={`${list.shoppingListId}`}>
                       <h2>{list.title}</h2>
                     </Link>
-                    <span>{list.created_at.replace(/[-]/g, "-")}</span>
+                    <span>{formatDate(list.created_at)}</span>
                   </div>
                   <ShoppingListModal
                     list={list}

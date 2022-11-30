@@ -54,6 +54,12 @@ export const ListContainer = styled.div`
           38px 13px 50px -7px rgba(0, 0, 0, 0.051),
           91px 31px 80px -7px rgba(0, 0, 0, 0.09);
       }
+      & .icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+      }
       &:first-child {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
