@@ -16,10 +16,10 @@ export const login = async (req: Request, res: Response) => {
     .then((user) => {
       if (!user) {
         console.log("User not in database");
-        return res.status(404).send({
+        return res.status(401).send({
           accessToken: null,
-          message: "Wrong username, or user doesn't exits",
-          code: 404,
+          message: "Password or username is wrong",
+          code: 401,
         });
       }
       console.log("User found");
@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
       if (!validPassword) {
         return res.status(401).send({
           accessToken: null,
-          message: "Wrong Password",
+          message: "Password or username is wrong",
           code: 401,
         });
       }
